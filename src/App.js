@@ -1,10 +1,10 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { increaseCounter, decreaseCounter } from './redux/action/counterAction';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { increaseCounter, decreaseCounter } from './redux/action/counterAction';
 import MyComponents from './components/MyComponents';
 import React from 'react';
-import { render } from '@testing-library/react';
+// import { render } from '@testing-library/react';
 
 class App extends React.Component {
 
