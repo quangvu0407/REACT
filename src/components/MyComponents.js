@@ -6,19 +6,19 @@ import DisplayInfor from './DisplayInfor';
 class MyComponents extends React.Component {
     //JSX
     state = {
-        listUser:[
-            {id: 1, name: "quang", age: 25},
-            {id: 2, name: "devpro", age: 25},
-            {id: 3, name: "eric", age: 25},
+        listUser: [
+            { id: 1, name: "quang", age: "16" },
+            { id: 2, name: "devpro", age: "26" },
+            { id: 3, name: "eric", age: "69" },
         ]
     }
     render() {
         return (
             <div>
                 <UserInfor />
-                <hr/>
-                <DisplayInfor 
-                    listUser = {this.state.listUser}
+                <hr />
+                <DisplayInfor
+                    listUser={this.state.listUser}
                 />
             </div>
         );
