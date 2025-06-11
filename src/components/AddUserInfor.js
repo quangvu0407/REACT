@@ -3,9 +3,9 @@ import React from 'react';
 class AddUserInfor extends React.Component {
 
     state = {
-        name: 'quangquang',
+        name: '',
         address: 'Ha Noi',
-        age: 26
+        age: ''
     }
 
     handleClick(event) {
