@@ -4,10 +4,12 @@ import logo from './../logo.svg';
 
 class DisplayInfor extends React.Component {
 
-    state = {
-        isShow: true
+    constructor(props) {
+        super(props);
+        this.state = {
+            isShow: true
+        };
     }
-
     handleShowHide = () => {
         this.setState({
             isShow: !this.state.isShow
