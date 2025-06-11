@@ -21,22 +21,28 @@ class MyComponents extends React.Component {
         //     listUser: listUserNews
         // })
         this.setState({
-            listUser : [userobj, ...this.state.listUser]
+            listUser: [userobj, ...this.state.listUser]
         })
     }
 
     render() {
         return (
-            <div>
-                <AddUserInfor 
-                    handleAddNewUser = {this.handleAddNewUser}
-                />
-                <hr />
-                <DisplayInfor
-                    listUser={this.state.listUser}
-                />
-            </div>
-        );  
+            <>
+                <div className='a'>
+                    <AddUserInfor
+                        handleAddNewUser={this.handleAddNewUser}
+                    />
+                    <hr />
+                    <DisplayInfor
+                        listUser={this.state.listUser}
+                    />
+                </div>
+                <div className='b'>
+
+                </div>
+            </>
+
+        );
     }
 }
 
