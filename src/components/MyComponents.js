@@ -1,7 +1,7 @@
 // Class component
 //functional component
 import React from 'react';
-import UserInfor from './UserInfor';
+import AddUserInfor from './AddUserInfor';
 import DisplayInfor from './DisplayInfor';
 class MyComponents extends React.Component {
     //JSX
@@ -12,16 +12,31 @@ class MyComponents extends React.Component {
             { id: 3, name: "eric", age: "69" },
         ]
     }
+
+    handleAddNewUser = (userobj) => {
+        // console.log("<<<check data from parent: ", userobj)
+        // let listUserNews = this.state.listUser;
+        // listUserNews.unshift(userobj);
+        // this.setState({
+        //     listUser: listUserNews
+        // })
+        this.setState({
+            listUser : [userobj, ...this.state.listUser]
+        })
+    }
+
     render() {
         return (
             <div>
-                <UserInfor />
+                <AddUserInfor 
+                    handleAddNewUser = {this.handleAddNewUser}
+                />
                 <hr />
                 <DisplayInfor
                     listUser={this.state.listUser}
                 />
             </div>
-        );
+        );  
     }
 }
 

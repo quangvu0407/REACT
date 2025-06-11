@@ -1,7 +1,7 @@
 import React from 'react';
 
-class UserInfor extends React.Component{
-    
+class AddUserInfor extends React.Component {
+
     state = {
         name: 'quangquang',
         address: 'Ha Noi',
@@ -26,22 +26,26 @@ class UserInfor extends React.Component{
         this.setState({
             name: event.target.value
         })
-        console.log(event.target.value)
+        // console.log(event.target.value)
     }
 
     handleOnChangeInputAge = (event) => {
         this.setState({
             age: event.target.value
         })
-        console.log(event.target.value)
+        // console.log(event.target.value)
     }
 
     handleOnSubmit = (event) => {
         event.preventDefault();
-        console.log(this.state)
+        this.props.handleAddNewUser({
+            id: Math.floor((Math.random() * 100) + 1) + '-random',
+            name: this.state.name,
+            age: this.state.age,
+        });
     }
     render() {
-        return(
+        return (
             <div>
                 My name is {this.state.name} and I am from {this.state.age}
                 {/* {Math.random()} */}
@@ -50,7 +54,7 @@ class UserInfor extends React.Component{
                 <form onSubmit={(event) => { this.handleOnSubmit(event) }}>
                     <label>your name: </label>
                     <input
-                        value= {this.state.name}
+                        value={this.state.name}
                         type="text"
                         onChange={(event) => { this.handleOnChangeInput(event) }}
                     />
@@ -58,7 +62,7 @@ class UserInfor extends React.Component{
 
                     <label>your age: </label>
                     <input
-                        value= {this.state.age}
+                        value={this.state.age}
                         type="text"
                         onChange={(event) => { this.handleOnChangeInputAge(event) }}
                     />
@@ -68,4 +72,4 @@ class UserInfor extends React.Component{
         );
     }
 }
-export default UserInfor;
+export default AddUserInfor;
