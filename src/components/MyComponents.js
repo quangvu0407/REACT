@@ -26,8 +26,10 @@ class MyComponents extends React.Component {
     }
 
     render() {
+
         return (
             <>
+                <br/>
                 <div className='a'>
                     <AddUserInfor
                         handleAddNewUser={this.handleAddNewUser}
