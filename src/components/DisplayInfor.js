@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './DisplayInfor.scss';
 import logo from './../logo.svg';
-import { use } from 'react';
 
 // class DisplayInfor extends React.Component {
 
@@ -42,12 +41,11 @@ import { use } from 'react';
 //         );
 //     }
 // }
-
 const DisplayInfor = (props) => {
     const { listUser } = props
 
     const [isShowHideListUser, setShowHideListUser] = useState(true);
-    
+
     // this.State{
     //     isShowHideListUser: true;
     // }
