@@ -1,46 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './DisplayInfor.scss';
 import logo from './../logo.svg';
 
-// class DisplayInfor extends React.Component {
-
-//     handleShowHide = () => {
-//         this.setState({
-//             isShow: !this.state.isShow
-//         })
-//     }
-
-//     render() {
-//         console.log("render: ")
-//         const { listUser } = this.props
-//         // console.log(listUser)
-//         // console.table(listUser)
-//         return (
-//             <div className='Display-infor-container'>
-//                 { true  &&
-//                     <>
-//                         {listUser.map((user, index) => {
-//                             return (
-//                                 <div key={user.id} className={+user.age > 18 ? "green" : "red"}>
-//                                     <div>
-//                                         <div>My name's {user.name}</div>
-//                                         <div>My age's {user.age}</div>
-
-//                                     </div>
-//                                     <div>
-//                                         <button onClick={() => this.props.handleDeleteUser(user.id)}>Delete</button>
-//                                     </div>
-//                                     <hr />
-//                                 </div>
-
-//                             )
-//                         })}
-//                     </>
-//                 }
-//             </div>
-//         );
-//     }
-// }
 const DisplayInfor = (props) => {
     const { listUser } = props
 
@@ -51,9 +12,23 @@ const DisplayInfor = (props) => {
     // }
 
     const HandleShowHideListUser = () => {
-        alert("Click me to show/hide list user");
+        // alert("Click me to show/hide list user");
         setShowHideListUser(!isShowHideListUser);
     }
+
+    console.log("call me render");
+
+    useEffect(
+        () => {
+            // setTimeout(() => { document.title = "quang" }, 3000)
+            if(listUser.length === 0){
+                alert("listuser is none");  
+            }
+            console.log("call me useEffect");
+            
+        },[listUser]
+    );
+
     return (
         <div className='Display-infor-container'>
             <div>
