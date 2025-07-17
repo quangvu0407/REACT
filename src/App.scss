@@ -8,16 +8,104 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+@media (min-width: 1400px) {
+
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl,
+  .container-xxl {
+    max-width: 1500px !important;
+  }
+}
+
 .app-container {
   .header-container {
-    .navbar-nav {
+    .btn-login {
+      border-radius: 5px;
+      margin-right: 15px;
+      padding: 0 15px;
+      border: 1px solid #535353;
+      height: 40px;
+    }
+
+    .btn-signup {
+      background: #3c3939;
+      color: white;
+      border-radius: 5px;
+      margin-right: 15px;
+      padding: 0 15px;
+      border: 1px solid #535353;
+
+      &:hover {
+        background: black;
+      }
+    }
+
+    .navbar {
+      padding-top: 20px;
+      z-index: 10;
+      background-color: rgba(0, 0, 0, 0) !important;
+
       .nav-link {
+        margin-right: 20px;
+
         &.active {
           color: red;
         }
       }
+
+      // .navbar-nav{
+      //   margin-left: 80px;
+      // }
     }
   }
+
+  .homepage-container {
+    .homepage-content {
+      position: relative;
+      width: 50%;
+      padding: 0 130px;
+      margin-top: 100px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+
+    }
+
+    .title-1 {
+      font-size: 50px;
+      font-weight: 600;
+    }
+
+    .title-2 {
+      font-size: 25px;
+    }
+
+    .title-3 {
+      button {
+        border-radius: 5px;
+        height: 40px;
+        background: #3c3939;
+        color: white;
+        border-radius: 5px;
+        margin-right: 15px;
+        padding: 0 15px;
+        border: 1px solid #535353;
+
+        &:hover {
+          background: black;
+        }
+      }
+    }
+  }
+}
+
+video {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
 }
 
 // // .app-container {
