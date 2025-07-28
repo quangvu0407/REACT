@@ -1,19 +1,20 @@
 import ModalCreactUser from "./ModalCreateUser";
-
+import './ManageUser.scss';
 const ManagerUser = () => {
     return (
-        <div claasName="manage-user-container" >
-            <div classNameName="title">
+        <div className="manage-user-container" >
+            <div className="title">
                 Manage User
             </div>
-            <div classNameName="User-content">
+            <div className="User-content">
                 <div>
                     <button>Add new user</button>
                 </div>
                 <div>
                     Table of user
-                    <ModalCreactUser />
+
                 </div>
+                <ModalCreactUser />
             </div>
         </div>
     )
