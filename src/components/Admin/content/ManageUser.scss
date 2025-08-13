@@ -1,9 +1,16 @@
+
 .manage-user-container {
+    padding: 10px;
+
     .User-content {
-        .img-preview {
-            border: solid 1px red;
-            height: 150px;
+        .btn-add-new {
+            margin: 15px 0;
         }
+    }
+
+    .title {
+        font-weight: 600;
+        font-size: 20px;
     }
 }
 
