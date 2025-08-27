@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from 'react-icons/fc';
 import { toast } from 'react-toastify';
 import { postCreateNewUser } from '../../../services/apiServices';
+import _ from "lodash";
 
 const ModalUpdateUser = (props) => {
-    const { show, setShow } = props;
+    const { show, setShow, dataUpdate } = props;
 
     const handleClose = () => {
         setShow(false);
@@ -20,9 +21,20 @@ const ModalUpdateUser = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
-    const [role, setRole] = useState('USER');
+    const [role, setRole] = useState('');
     const [image, setImage] = useState('');
     const [PreviewImage, setPreviewImage] = useState('');
+
+    useEffect(() => {
+        console.log("run effect", dataUpdate)
+        if (!_.isEmpty(dataUpdate)) {
+            setEmail(dataUpdate.email);
+            setUsername(dataUpdate.username);
+            setRole(dataUpdate.role);
+            setImage();
+            setPreviewImage(`data:image/jpeg;base64,${dataUpdate.image}`);
+        }
+    }, [props.dataUpdate])
 
     const handleUploadImage = (ev) => {
         if (ev.target && ev.target.files && ev.target.files[0]) {
@@ -42,7 +54,7 @@ const ModalUpdateUser = (props) => {
             );
     };
 
-    const handleSubmitCreateUser = async () => {
+    const handleSubmitUpdateUser = async () => {
         const isValidEmail = validateEmail(email);
         if (!isValidEmail) {
             toast.error("invalid email");
@@ -54,7 +66,6 @@ const ModalUpdateUser = (props) => {
         }
 
         let data = await postCreateNewUser(email, password, username, role, image)
-        console.log(">>check res: ", data)
 
         if (data && data.EC === 0) {
             toast.success(data.EM)
@@ -65,6 +76,7 @@ const ModalUpdateUser = (props) => {
             toast.error(data.EM)
         }
     }
+    console.log("check data", dataUpdate)
     return (
         <>
             {/* <Button variant="primary" onClick={handleShow}>
@@ -79,7 +91,7 @@ const ModalUpdateUser = (props) => {
                 className="modal-add-user"
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Add new user</Modal.Title>
+                    <Modal.Title>Update user</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
@@ -89,6 +101,7 @@ const ModalUpdateUser = (props) => {
                                 type="email"
                                 className="form-control"
                                 value={email}
+                                disabled
                                 onChange={(ev) => setEmail(ev.target.value)}
                             />
                         </div>
@@ -98,6 +111,7 @@ const ModalUpdateUser = (props) => {
                                 type="password"
                                 className="form-control"
                                 value={password}
+                                disabled
                                 onChange={(ev) => setPassword(ev.target.value)}
                             />
                         </div>
@@ -112,7 +126,9 @@ const ModalUpdateUser = (props) => {
                         </div>
                         <div className="col-md-4">
                             <label className="form-label">Role</label>
-                            <select className="form-select" onChange={(ev) => setRole(ev.target.value)}>
+                            <select className="form-select"
+                                value={role}
+                                onChange={(ev) => setRole(ev.target.value)}>
                                 <option value="USER">USER</option>
                                 <option value="ADMIN">ADMIN</option>
                             </select>
@@ -143,7 +159,7 @@ const ModalUpdateUser = (props) => {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={() => handleSubmitCreateUser()}>
+                    <Button variant="primary" onClick={() => handleSubmitUpdateUser()}>
                         Save
                     </Button>
                 </Modal.Footer>
