@@ -39,7 +39,7 @@ const SideBar = (props) => {
                             whiteSpace: 'nowrap',
                         }}
                     >
-                        <span>Hoi Dan IT</span>
+                        <span>Quang Quang</span>
                     </div>
                 </SidebarHeader>
 
