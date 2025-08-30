@@ -1,10 +1,15 @@
-
 .manage-user-container {
     padding: 10px;
 
     .User-content {
         .btn-add-new {
             margin: 15px 0;
+        }
+
+        .btn-primary {
+            background-color: rgb(249, 224, 224);
+            border: 1px solid rgb(27, 18, 18);
+            color: black;
         }
     }
 
@@ -15,6 +20,12 @@
 }
 
 .modal-add-user {
+    // .modal-content {
+    //     background-image: url('https://img.thuthuatphanmem.vn/uploads/2018/10/04/hinh-nen-sieu-xe-3d-cho-may-tinh_111411685.jpg');
+    //     background-size: cover;
+    //     background-color: rgb(246, 239, 239);
+    // }
+
     .img-preview {
         height: 150px;
         border: 1px dashed;
@@ -43,6 +54,52 @@
 
         &:hover {
             background: #75b9c2;
+        }
+    }
+}
+
+.modal-view-user {
+    .modal-content {
+        color: white;
+        border: 1px solid rgb(43, 30, 30);
+        background-color: rgb(246, 239, 239);
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+        background-image: url("https://boxgaixinh.net/wp-content/uploads/2022/11/3-7.jpg");
+        background-size: cover;
+
+        .modal-body {
+
+            input,
+            select {
+                background-color: #0e284140;
+            }
+
+            .form-control,
+            .form-select {
+                color: white;
+            }
+        }
+
+    }
+
+    .img-preview {
+        height: 150px;
+        border: 1px dashed;
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #ccc;
+
+        img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    }
+
+    .modal-footer {
+        button {
+            background-color: #0e284140;
         }
     }
 }

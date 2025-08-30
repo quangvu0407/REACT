@@ -1,67 +1,52 @@
+import { deleteUser } from '../../../services/apiServices';
 import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { FcPlus } from 'react-icons/fc';
 import { toast } from 'react-toastify';
-import { putUpdateUser } from '../../../services/apiServices';
 import _ from "lodash";
 
-const ModalUpdateUser = (props) => {
-    const { show, setShow, dataUpdate } = props;
+const ModalDeleteUser = (props) => {
+    const { show, setShow, dataDelete, setDataDelete } = props;
 
+    console.log(dataDelete)
     const handleClose = () => {
         setShow(false);
         setEmail("");
-        setPassword("");
         setUsername("");
         setRole("USER");
         setImage("");
-        props.resetUpdateUser();
+        setDataDelete({});
     }
 
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
-    const [role, setRole] = useState('');
+    const [role, setRole] = useState('USER');
     const [image, setImage] = useState('');
     const [PreviewImage, setPreviewImage] = useState('');
 
     useEffect(() => {
-        console.log("run effect", dataUpdate)
-        if (!_.isEmpty(dataUpdate)) {
-            setEmail(dataUpdate.email);
-            setUsername(dataUpdate.username);
-            setRole(dataUpdate.role);
-            setImage();
-            setPreviewImage(`data:image/jpeg;base64,${dataUpdate.image}`);
+        if (!_.isEmpty(dataDelete)) {
+            setEmail(dataDelete.email);
+            setUsername(dataDelete.username);
+            setRole(dataDelete.role);
+            setPreviewImage(`data:image/jpeg;base64,${dataDelete.image}`);
         }
-    }, [dataUpdate])
+    }, [dataDelete])
+    const handleSubmitDeleteUser = async () => {
 
-    const handleUploadImage = (ev) => {
-        if (ev.target && ev.target.files && ev.target.files[0]) {
-            setPreviewImage(URL.createObjectURL(ev.target.files[0]));
-            setImage(ev.target.files[0]);
-        }
-        else {
-            setPreviewImage("");
-        }
-    }
-
-
-    const handleSubmitUpdateUser = async () => {
-
-        let data = await putUpdateUser(dataUpdate.id, username, role, image)
-
+        let data = await deleteUser(dataDelete.id)
+        console.log(data, dataDelete)
         if (data && data.EC === 0) {
             toast.success(data.EM)
             handleClose();
             await props.fetchListUser()
         }
         if (data && data.EC !== 0) {
+            console.log(data)
             toast.error(data.EM)
         }
     }
-    // console.log("check data", dataUpdate)
+
     return (
         <>
             {/* <Button variant="primary" onClick={handleShow}>
@@ -71,16 +56,16 @@ const ModalUpdateUser = (props) => {
             <Modal
                 show={show}
                 onHide={handleClose}
-                size='xl'
+                size='l'
                 backdrop="static"
-                className="modal-add-user"
+                className="modal-view-user"
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Update user</Modal.Title>
+                    <Modal.Title>Delete user</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
-                        <div className="col-md-6">
+                        <div className="col-md-12">
                             <label className="form-label">Email</label>
                             <input
                                 type="email"
@@ -90,44 +75,26 @@ const ModalUpdateUser = (props) => {
                                 onChange={(ev) => setEmail(ev.target.value)}
                             />
                         </div>
-                        <div className="col-md-6">
-                            <label className="form-label">Password</label>
-                            <input
-                                type="password"
-                                className="form-control"
-                                value={password}
-                                disabled
-                                onChange={(ev) => setPassword(ev.target.value)}
-                            />
-                        </div>
-                        <div className="col-md-6">
+                        <div className="col-md-12">
                             <label className="form-label">Username</label>
                             <input
                                 type="text"
                                 className="form-control"
                                 value={username}
+                                disabled
                                 onChange={(ev) => setUsername(ev.target.value)}
                             />
                         </div>
-                        <div className="col-md-4">
+                        <div className="col-md-12">
                             <label className="form-label">Role</label>
-                            <select className="form-select"
+                            <select
+                                className="form-select"
                                 value={role}
+                                disabled
                                 onChange={(ev) => setRole(ev.target.value)}>
                                 <option value="USER">USER</option>
                                 <option value="ADMIN">ADMIN</option>
                             </select>
-                        </div>
-                        <div className='col-md-12'>
-                            <label className="form-label label-upload" htmlFor='label-upload'>
-                                <FcPlus className='icon-upload' />
-                                Upolad File Image</label>
-                            <input
-                                type="file"
-                                hidden
-                                id='label-upload'
-                                onChange={(ev) => handleUploadImage(ev)}
-                            />
                         </div>
                         <div className='col-md-12 img-preview'>
 
@@ -144,12 +111,13 @@ const ModalUpdateUser = (props) => {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={() => handleSubmitUpdateUser()}>
-                        Save
+                    <Button variant="primary" onClick={() => handleSubmitDeleteUser()}>
+                        Delete
                     </Button>
                 </Modal.Footer>
             </Modal>
         </>
     );
 }
-export default ModalUpdateUser;
+
+export default ModalDeleteUser;

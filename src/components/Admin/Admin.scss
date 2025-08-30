@@ -1,21 +1,27 @@
 .admin-container {
     display: flex;
+
     .admin-sidebar {
         .pro-sidebar {
             height: 100vh !important;
         }
     }
+
     .admin-content {
         width: 100%;
         padding: 0;
+
         .admin-header {
             height: 40px;
             border: 1px solid green;
+
+            svg {
+                margin-left: 30px;
+            }
         }
 
-        .admin-main {
-      
-        }
+        .admin-main {}
     }
+
     ;
 }
