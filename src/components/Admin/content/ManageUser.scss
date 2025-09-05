@@ -3,13 +3,19 @@
 
     .User-content {
         .btn-add-new {
-            margin: 15px 0;
+            .btn-primary {
+                background-color: rgb(249, 224, 224);
+                border: 1px solid rgb(27, 18, 18);
+                color: black;
+                margin: 15px 0;
+            }
         }
 
-        .btn-primary {
-            background-color: rgb(249, 224, 224);
-            border: 1px solid rgb(27, 18, 18);
-            color: black;
+        .table-users-container {
+            .pagination {
+                display: flex;
+                justify-content: center;
+            }
         }
     }
 
@@ -59,6 +65,7 @@
 }
 
 .modal-view-user {
+
     .modal-content {
         color: white;
         border: 1px solid rgb(43, 30, 30);

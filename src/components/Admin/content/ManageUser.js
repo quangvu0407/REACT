@@ -3,13 +3,17 @@ import './ManageUser.scss';
 import { FcPlus } from 'react-icons/fc';
 import TableUser from "./tableUser";
 import { useEffect, useState } from "react";
-import { getAllUser } from "../../../services/apiServices"
+import { getAllUser, getUserWithPaginate } from "../../../services/apiServices"
 import ModalUpdateUser from "./ModalUpdateUser";
 import ModalViewUser from "./ModalViewUser";
 import ModalDeleteUser from "./ModalDeleteUser";
+import TableUserPaginate from "./TableUserPaginate";
 
 
 const ManagerUser = () => {
+    const LIMIT_USER = 6;
+    const [pageCount, setPageCount] = useState(0);
+
 
     const [showModalCreateUser, setShowModalCreateUser] = useState(false);
 
@@ -26,13 +30,23 @@ const ManagerUser = () => {
 
 
     useEffect(() => {
-        fetchListUser();
+        // fetchListUser();
+        fetchListUserWithPaginate(1);
     }, []);
 
     const fetchListUser = async () => {
         let res = await getAllUser()
         if (res.EC === 0) {
             setListUsers(res.DT)
+        }
+    }
+
+    const fetchListUserWithPaginate = async (page) => {
+        let res = await getUserWithPaginate(page, LIMIT_USER);
+        if (res.EC === 0) {
+            console.log("res.dt", res.DT)
+            setListUsers(res.DT.users)
+            setPageCount(res.DT.totalPages)
         }
     }
     const handleClickBtnUpdate = (user) => {
@@ -68,11 +82,19 @@ const ManagerUser = () => {
 
                 </div>
                 <div className="table-users-container">
-                    <TableUser
+                    {/* <TableUser
                         listUsers={listUsers}
                         handleClickBtnUpdate={handleClickBtnUpdate}
                         handClickBtnView={handClickBtnView}
                         handClickBtnDelete={handClickBtnDelete}
+                    /> */}
+                    <TableUserPaginate
+                        listUsers={listUsers}
+                        handleClickBtnUpdate={handleClickBtnUpdate}
+                        handClickBtnView={handClickBtnView}
+                        handClickBtnDelete={handClickBtnDelete}
+                        fetchListUserWithPaginate={fetchListUserWithPaginate}
+                        pageCount={pageCount}
                     />
 
                 </div>
