@@ -11,8 +11,9 @@ import TableUserPaginate from "./TableUserPaginate";
 
 
 const ManagerUser = () => {
-    const LIMIT_USER = 6;
+    const LIMIT_USER = 4;
     const [pageCount, setPageCount] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
 
 
     const [showModalCreateUser, setShowModalCreateUser] = useState(false);
@@ -95,6 +96,8 @@ const ManagerUser = () => {
                         handClickBtnDelete={handClickBtnDelete}
                         fetchListUserWithPaginate={fetchListUserWithPaginate}
                         pageCount={pageCount}
+                        currentPage={currentPage}
+                        setCurrentPage={setCurrentPage}
                     />
 
                 </div>
@@ -102,13 +105,19 @@ const ManagerUser = () => {
                     show={showModalCreateUser}
                     setShow={setShowModalCreateUser}
                     fetchListUser={fetchListUser}
+                    fetchListUserWithPaginate={fetchListUserWithPaginate}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
                 />
                 <ModalUpdateUser
                     show={showModalUpdateUser}
                     setShow={setShowModalUpdateUser}
                     dataUpdate={dataUpdate}
                     fetchListUser={fetchListUser}
+                    fetchListUserWithPaginate={fetchListUserWithPaginate}
                     resetUpdateUser={resetUpdateUser}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
                 />
                 <ModalViewUser
                     show={showModalViewUser}
@@ -122,6 +131,9 @@ const ManagerUser = () => {
                     dataDelete={dataDelete}
                     setDataDelete={setDataDelete}
                     fetchListUser={fetchListUser}
+                    fetchListUserWithPaginate={fetchListUserWithPaginate}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage} 
                 />
             </div>
         </div>
