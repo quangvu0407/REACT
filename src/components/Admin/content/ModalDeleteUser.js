@@ -8,7 +8,6 @@ import _ from "lodash";
 const ModalDeleteUser = (props) => {
     const { show, setShow, dataDelete, setDataDelete } = props;
 
-    console.log(dataDelete)
     const handleClose = () => {
         setShow(false);
         setEmail("");
