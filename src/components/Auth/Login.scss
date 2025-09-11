@@ -1,51 +1,75 @@
 .login-container {
+    background-image: url('https://png.pngtree.com/background/20240507/original/pngtree-contemporary-authentic-3d-renderings-of-web-login-page-templates-picture-image_8832124.jpg');
+    background-size: cover;
+    min-height: 100vh;
+    color: white;
+    font-family: Open Sans;
+
     .header {
         height: 45px;
         text-align: right;
-        padding: 8px 100px;
+        padding: 8px 40px;
 
         button {
             border: none;
-            padding: 3px 8px;
+            padding: 3px 12px;
             border-radius: 5px;
-            background: rgb(226, 214, 214);
+            background: rgb(118, 45, 45);
             border: 1px solid black;
+            color: white;
             margin-left: 15px;
+
             &:hover {
-                background-color: white;
+                background-color: rgb(81, 54, 54);
             }
         }
     }
 
-    .title {
-        font-size: 25px;
-        padding: 20px 0;
-        text-align: center;
-    }
-
-    .welcome {
-        font-size: 20px;
-        padding: 10px 0;
-        text-align: center;
-    }
-
-    .content-form {
-        input {
-            margin-bottom: 15px;
-            margin-top: 3px;
+    .content {
+        padding: 10px 20px 70px;
+        background-color: #210a0a4f;
+        border: 1px solid rgb(128, 88, 88);
+        border-radius: 10px;
+        box-shadow: 1px;
+        .title {
+            font-size: 25px;
+            padding: 20px 0;
+            text-align: center;
         }
 
-        button {
-            width: 100%;
-            height: 40px;
-            border: none;
-            margin: 20px 0;
-            border-radius: 5px;
-            color: white;
-            background: black;
+        .welcome {
+            font-size: 20px;
+            padding: 10px 0;
+            text-align: center;
         }
-        .back {
-            cursor: pointer;
+
+        .content-form {
+            input {
+                margin-bottom: 20px;
+                margin-top: 5px;
+                background-color: rgba(152, 105, 105, 0.36);
+                color: white;
+            }
+
+            button {
+                width: 100%;
+                height: 40px;
+                border: none;
+                margin: 30px 0;
+                border-radius: 5px;
+                color: white;
+                background: rgb(87, 30, 43);
+                font-size: 18px;
+                border: 1px solid rgb(235, 126, 126);
+                &:hover {
+                    background-color: rgb(232, 154, 154);
+                }
+            }
+
+            .back {
+                cursor: pointer;
+            }
         }
     }
+
 }

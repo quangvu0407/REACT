@@ -1,0 +1,67 @@
+.register-container {
+    background-image: url('https://nhattientuu.com/wp-content/uploads/2020/08/hinh-anh-dep-12.jpg');
+    background-size: cover;
+    min-height: 100vh;
+    font-family: Open Sans;
+    .header {
+        height: 45px;
+        text-align: right;
+        padding: 8px 40px;
+        color: rgb(228, 140, 140);
+        button {
+            border: none;
+            padding: 3px 12px;
+            border-radius: 5px;
+            background: rgb(213, 182, 182);
+            border: 1px solid black;
+            margin-left: 15px;
+
+            &:hover {
+                background-color: white;
+            }
+        }
+    }
+
+    .content {
+        padding: 20px;
+        background-color: #9282829c;
+        margin-top: 30px;
+        border-radius: 10px;
+        border: 1px solid rgb(235, 119, 119);
+
+        .title {
+            font-size: 25px;
+            text-align: center;
+        }
+
+        .welcome {
+            font-size: 25px;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .content-form {
+            input {
+                margin-bottom:25px;
+                margin-top: 3px;
+                background:rgb(228, 219, 219);
+            }
+
+            button {
+                width: 100%;
+                height: 40px;
+                border: none;
+                margin: 20px 0;
+                border-radius: 5px;
+                color: white;
+                background: rgb(54, 38, 51);
+            }
+
+            .back {
+                cursor: pointer;
+                color: rgb(18, 6, 6);
+            }
+        }
+
+    }
+}
