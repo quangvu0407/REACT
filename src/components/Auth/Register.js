@@ -3,12 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import './Register.scss'
 import { postRegister } from "../../services/apiServices";
+import { VscEye, VscEyeClosed } from "react-icons/vsc";
 
 const Register = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [userName, setUserName] = useState("");
     const navigate = useNavigate()
+
+    const [isShowPassword, setIsShowPassword] = useState(false);
 
     const validateEmail = (email) => {
         return String(email)
@@ -75,15 +78,30 @@ const Register = () => {
                             placeholder="Nhập UserName..."
                         ></input>
                     </div>
-                    <div className="form-group">
+                    <div className='form-group pass-group'>
                         <label>Password</label>
                         <input
-                            type="password"
+                            type={isShowPassword ? "text" : "password"}
                             className="form-control"
                             value={password}
                             onChange={(event) => setPassword(event.target.value)}
                             placeholder="Nhập Password..."
-                        ></input>
+                        />
+                        {isShowPassword ? (
+                            <span
+                                className="icons-eyes"
+                                onClick={() => setIsShowPassword(false)}
+                            >
+                                <VscEye />
+                            </span>
+                        ) : (
+                            <span
+                                className="icons-eyes"
+                                onClick={() => setIsShowPassword(true)}
+                            >
+                                <VscEyeClosed />
+                            </span>
+                        )}
                     </div>
                     <div>
                         <button
