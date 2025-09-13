@@ -5,6 +5,22 @@
     color: white;
     font-family: Open Sans;
 
+    .load-icon {
+        margin-right: 7px;
+        top: 2px;
+        animation: spin 1s infinite linear;
+    }
+
+    @keyframes spin {
+        from {
+            transform: scale(1) rotate(0deg);
+        }
+
+        to {
+            transform: scale(1) rotate(360deg);
+        }
+    }
+
     .header {
         height: 45px;
         text-align: right;
@@ -32,6 +48,7 @@
         border: 1px solid rgb(128, 88, 88);
         border-radius: 10px;
         box-shadow: 1px;
+
         .title {
             font-size: 25px;
             padding: 20px 0;
@@ -62,8 +79,14 @@
                 background: rgb(87, 30, 43);
                 font-size: 18px;
                 border: 1px solid rgb(235, 126, 126);
+                cursor: pointer;
+
                 &:hover {
                     background-color: rgb(232, 154, 154);
+                }
+                &:disabled {
+                    background-color: rgb(229, 199, 199);
+                    cursor: no-drop;
                 }
             }
 
