@@ -1,11 +1,18 @@
-import { useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { useParams, useLocation } from "react-router-dom"
 import { getDataQuiz } from "../../services/apiServices"
 import _ from "lodash"
+import './DetailQuiz.scss'
+import Question from "./Question"
 
 const DetailQuiz = (props) => {
     const paramas = useParams();
+    const location = useLocation();
+
     const quizId = paramas.id;
+    const [dataQuiz, setDataQuiz] = useState();
+    const [index, setIndex] = useState(0);
+
     useEffect(() => {
         fetchQuestions();
     }, [quizId])
@@ -22,24 +29,47 @@ const DetailQuiz = (props) => {
                 .map((value, key) => {
                     let answers = [];
                     let questionDescriotion, image = null;
-                    console.log('value', value, 'key', key)
+                    // console.log('value', value, 'key', key)
                     value.forEach((item, index) => {
-                        if(index === 0) {
+                        if (index === 0) {
                             questionDescriotion = item.description;
                             image = item.image
                         }
-                         answers.push(item.answers)
-                        console.log("item answers", item.answers)
+                        answers.push(item.answers)
+                        // console.log("item answers", item.answers)
                     })
                     return { questionId: key, answers, questionDescriotion, image }
                 })
                 .value()
-            console.log(data)
+            // console.log(data)
+            setDataQuiz(data)
         }
     }
+
+    console.log(dataQuiz)
     return (
-        <div>   
-            detailquiz
+        <div className="detail-quiz-container">
+            <div className="left-content">
+                <div className="title">
+                    Quiz{quizId}: {location?.state?.quizTitle}
+                </div>
+
+                <hr />
+                <div className="q-body">
+                    <img />
+                </div>
+                <div className="q-content">
+                    <Question data = {dataQuiz[index]}/>
+                </div>
+                <div className="footer">
+                    <button className="btn btn-primary">prev</button>
+                    <button className="btn btn-secondary mr-3">next</button>
+                </div>
+            </div>
+            <div className="right-content">
+                count down
+            </div>
+
         </div>
     )
 }
