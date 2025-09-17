@@ -17,9 +17,18 @@ const DetailQuiz = (props) => {
         fetchQuestions();
     }, [quizId])
 
+    const handlePrev = () => {
+        if (index - 1 < 0) return;
+        setIndex(index - 1);
+    }
+    const handleNext = () => {
+        if (dataQuiz && dataQuiz.length > index + 1)
+            setIndex(index + 1)
+    }
+
     const fetchQuestions = async () => {
         let res = await getDataQuiz(quizId);
-        console.log('check id', res);
+        // console.log('check id', res);
         if (res && res.EC === 0) {
             let raw = res.DT;
             let data = _.chain(raw)
@@ -46,7 +55,7 @@ const DetailQuiz = (props) => {
         }
     }
 
-    console.log(dataQuiz)
+    // console.log(dataQuiz)
     return (
         <div className="detail-quiz-container">
             <div className="left-content">
@@ -59,11 +68,21 @@ const DetailQuiz = (props) => {
                     <img />
                 </div>
                 <div className="q-content">
-                    <Question data = {dataQuiz[index]}/>
+                    <Question
+                        index={index}
+                        data={
+                            dataQuiz && dataQuiz.length > 0 ?
+                                dataQuiz[index] : []} />
                 </div>
                 <div className="footer">
-                    <button className="btn btn-primary">prev</button>
-                    <button className="btn btn-secondary mr-3">next</button>
+                    <button
+                        className="btn btn-secondary"
+                        onClick={() => handlePrev()}
+                    >prev</button>
+                    <button
+                        className="btn btn-primary mr-3"
+                        onClick={() => handleNext()}
+                    >next</button>
                 </div>
             </div>
             <div className="right-content">
