@@ -30,14 +30,13 @@ const DetailQuiz = (props) => {
         let dataQuizClone = _.cloneDeep(dataQuiz)
         let question = dataQuizClone.find(item =>  +item.questionId === +questionId)
         if(question && question.answers){
-            let b = question.answers.map((item)=>{
+            question.answers = question.answers.map((item)=>{
                 if(+item.id === +answerId){
                     item.isSelected = !item.isSelected;
                 }
                 return item;
             })
-            console.log(b)
-            question.answers = b
+            
         }
             
         let index = dataQuizClone.findIndex(item =>  +item.questionId === +questionId)
@@ -49,7 +48,7 @@ const DetailQuiz = (props) => {
 
     const fetchQuestions = async () => {
         let res = await getDataQuiz(quizId);
-        // console.log('check id', res);
+       
         if (res && res.EC === 0) {
             let raw = res.DT;
             let data = _.chain(raw)
@@ -72,8 +71,33 @@ const DetailQuiz = (props) => {
                     return { questionId: key, answers, questionDescriotion, image }
                 })
                 .value()
-            console.log(data)
             setDataQuiz(data)
+        }
+    }
+
+    const handleFinishQuiz =() => {
+        console.log("check data ", dataQuiz)
+        let payload = {
+            quizId: +quizId,
+            answers: []
+        };
+        let answers = [];
+        if(dataQuiz && dataQuiz.length > 0) {
+            dataQuiz.forEach(question => {
+                let questionId = question.questionId;
+                let useAnswerId = [];
+                question.answers.forEach(a => {
+                    if(a.isSelected === true){
+                        useAnswerId.push(a.id)
+                    }
+                })
+                answers.push({
+                        questionId: +questionId,
+                        useAnswerId: useAnswerId
+                })
+            })
+            payload.answers = answers;
+            console.log("check final", payload)
         }
     }
 
@@ -108,7 +132,7 @@ const DetailQuiz = (props) => {
                     >next</button>
                     <button
                         className="btn btn-warning mr-3"
-                        onClick={() => handleNext()}
+                        onClick={() => handleFinishQuiz()}
                     >Finish</button>
                 </div>
             </div>
