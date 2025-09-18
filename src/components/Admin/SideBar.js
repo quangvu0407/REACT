@@ -8,7 +8,7 @@ import {
     SidebarFooter,
     SidebarContent,
 } from 'react-pro-sidebar';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaTachometerAlt, FaGem, FaList, FaGithub, FaRegLaughWink, FaHeart } from 'react-icons/fa';
 import sidebarBg from '../../assets/bg2.jpg';
 import './SideBar.scss';
@@ -16,6 +16,7 @@ import './SideBar.scss';
 import { DiReact } from 'react-icons/di';
 import { MdDashboard } from 'react-icons/md';
 const SideBar = (props) => {
+    const navigate = useNavigate();
     const { image, collapsed, toggled, handleToggleSidebar } = props;
     return (
         <div>
@@ -39,7 +40,8 @@ const SideBar = (props) => {
                             whiteSpace: 'nowrap',
                         }}
                     >
-                        <span>Quang Quang</span>
+                        <DiReact size={'3em'} color={"00bfff"}/>
+                        <span onClick={() => navigate('/')}>Quang Quang</span>
                     </div>
                 </SidebarHeader>
 
@@ -67,6 +69,7 @@ const SideBar = (props) => {
                             </MenuItem>
                             <MenuItem>
                                 Quản lý bài Quiz
+                                <Link to="/admins/manage-quizzes" />
                             </MenuItem>
                             <MenuItem>
                                 Quản lý câu hỏi

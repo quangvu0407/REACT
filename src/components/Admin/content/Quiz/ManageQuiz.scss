@@ -1,0 +1,25 @@
+.quiz-container {
+    padding: 15px;
+
+    .title {
+        font-size: 30px;
+        font-weight: 600;
+    }
+
+    legend {
+        font-size: 15px;
+    }
+
+    .add-new {
+        .form-actions {
+            .form-label {
+                border: 1px solid green;
+                background: rgb(224, 166, 166);
+                padding: 7px 10px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            
+        }
+    }
+}
