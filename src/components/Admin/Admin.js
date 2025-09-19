@@ -3,6 +3,7 @@ import './Admin.scss';
 import { FaHeart, FaBars } from 'react-icons/fa';
 import { useState } from "react";
 import { Outlet } from 'react-router-dom';
+import PerfectScrollbar from 'react-perfect-scrollbar'
 
 import 'react-toastify/dist/ReactToastify.css';
 const Admin = () => {
@@ -18,13 +19,16 @@ const Admin = () => {
                     <FaBars onClick={() => setCollapsed(!collapsed)} />
                     {/* <FaBars onClick={() => setCollapsed(!toggled)} /> */}
                 </div>
+
                 <div className="admin-main">
-                    <Outlet />
+                    <PerfectScrollbar>
+                        <Outlet />
+                    </PerfectScrollbar>
                 </div>
 
             </div>
 
-        </div>
+        </div >
     )
 }
 
