@@ -1,6 +1,21 @@
 .quiz-container {
     // padding: 15px;
 
+    .accordion-header {
+        button {
+            background-color: rgb(231, 200, 200)(231, 200, 200);
+            font-weight: bold;
+        }
+    }
+
+    .accordion-body {
+        background-color: rgb(243, 238, 238);
+    }
+
+    .table {
+        border: 1px solid black;
+    }
+
     .title {
         font-size: 30px;
         font-weight: 600;
