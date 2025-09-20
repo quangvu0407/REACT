@@ -8,7 +8,7 @@ import _ from "lodash";
 
 const ModalUpdateUser = (props) => {
     const { show, setShow, dataUpdate } = props;
-
+    console.log(dataUpdate)
     const handleClose = () => {
         setShow(false);
         setEmail("");

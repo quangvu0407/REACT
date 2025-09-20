@@ -1,11 +1,16 @@
 import './ManageQuiz.scss';
 import Select from 'react-select';
 import { FcPlus } from 'react-icons/fc';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { postCreateNewQuiz } from '../../../../services/apiServices';
 import { toast } from 'react-toastify';
 import TableQuiz from './TableQuiz';
 import Accordion from 'react-bootstrap/Accordion';
+import { getAllQuizForAdmin } from '../../../../services/apiServices';
+
+import ModalDeleteQuiz from "./ModalDeleteQuiz";
+import ModalUpdateQuiz from './ModalUpdateQuiz';
+import ModalViewQuiz from './ModalViewQuiz';
 
 const options = [
     { value: 'EASY', label: 'EASY' },
@@ -18,6 +23,25 @@ const ManageQuiz = (props) => {
     const [description, setDescription] = useState("");
     const [type, setType] = useState('EASY');
     const [image, setImage] = useState(null);
+    const [showModalDelete, setShowModalDelete] = useState(false);
+    const [showModalUpdate, setShowModalUpdate] = useState(false);
+    const [showModalView, setShowModalView] = useState(false);
+
+    const [quiz, setQuiz] = useState({});
+    const [quizUpdate, setQuizUpdate] = useState({})
+    const [quizView, setQuizView] = useState({})
+    const [listQuiz, setListQuiz] = useState([]);
+
+    useEffect(() => {
+        fetchQuiz()
+    }, [])
+
+    const fetchQuiz = async () => {
+        let res = await getAllQuizForAdmin()
+        if (res && res.EC === 0) {
+            setListQuiz(res.DT)
+        }
+    }
 
     const handleChangeFile = (event) => {
         if (event.target && event.target.files && event.target.files[0]) {
@@ -37,15 +61,35 @@ const ManageQuiz = (props) => {
             setName('')
             setDescription('')
             setImage(null)
+            fetchQuiz()
         }
         else {
             toast.error(res.EM)
         }
     }
 
+    const handleClickBtnDelete = (item) => {
+        setShowModalDelete(true);
+        setQuiz(item)
+    }
+
+    const handleClickBtnUpdate = (item) => {
+        setShowModalUpdate(true);
+        setQuizUpdate(item);
+    }
+
+    const handleClickBtnView = (item) => {
+        setShowModalView(true);
+        setQuizView(item)
+    }
+
+    const resetUpdateQuiz = () => {
+        setQuizUpdate({})
+    }
+
     return (
         <div className="quiz-container">
-            <Accordion defaultActiveKey="0">
+            <Accordion defaultActiveKey="1">
                 <Accordion.Item eventKey="0">
                     <Accordion.Header>Manage Quizzes</Accordion.Header>
                     <Accordion.Body>
@@ -101,9 +145,33 @@ const ManageQuiz = (props) => {
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
-
-            <div className="list-detail">
-                <TableQuiz />
+            <div className='quiz-content'>
+                <div className="list-detail">
+                    <TableQuiz
+                        listQuiz={listQuiz}
+                        handleClickBtnDelete={handleClickBtnDelete}
+                        handleClickBtnUpdate={handleClickBtnUpdate}
+                        handleClickBtnView={handleClickBtnView}
+                    />
+                </div>
+                <ModalDeleteQuiz
+                    show={showModalDelete}
+                    setShow={setShowModalDelete}
+                    quiz={quiz}
+                    fetchQuiz={fetchQuiz}
+                />
+                <ModalUpdateQuiz
+                    show={showModalUpdate}
+                    setShow={setShowModalUpdate}
+                    quiz={quizUpdate}
+                    resetUpdateQuiz={resetUpdateQuiz}
+                    fetchQuiz={fetchQuiz}
+                />
+                <ModalViewQuiz
+                    show={showModalView}
+                    setShow={setShowModalView}
+                    quiz={quizView}
+                />
             </div>
         </div>
     )

@@ -1,20 +1,9 @@
 import { useEffect, useState } from "react";
 import { getAllQuizForAdmin } from "../../../../services/apiServices";
 
-const TableQuiz = () => {
-    const [listQuiz, setListQuiz] = useState([])
-    useEffect(() => {
-        fetchQuiz()
-    }, [])
 
-    const fetchQuiz = async () => {
-        let res = await getAllQuizForAdmin()
-        console.log(res)
-        if (res && res.EC === 0) {
-            setListQuiz(res.DT)
-        }
-    }
-
+const TableQuiz = (props) => {
+    const { listQuiz } = props;
     return (
         <>
             <div>List Quizzes:</div>
@@ -36,10 +25,16 @@ const TableQuiz = () => {
                                 <td>{item.name}</td>
                                 <td>{item.description}</td>
                                 <td>{item.difficulty}</td>
-                                <td style={{display:'flex', gap: '15px'}}>
-                                    <button className="btn btn-warning">Edit</button>
-                                    <button className="btn btn-danger">Delete</button>
-                                    <button className="btn btn-primary">View</button>
+                                <td style={{ display: 'flex', gap: '15px' }}>
+                                    <button className="btn btn-warning"
+                                        onClick={() => props.handleClickBtnUpdate(item)}
+                                    >Edit</button>
+                                    <button className="btn btn-danger"
+                                        onClick={() => props.handleClickBtnDelete(item)}
+                                    >Delete</button>
+                                    <button className="btn btn-primary"
+                                        onClick={() => props.handleClickBtnView(item)}
+                                    >View</button>
                                 </td>
                             </tr>
                         )
