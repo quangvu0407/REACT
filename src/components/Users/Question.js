@@ -37,7 +37,7 @@ const Question = (props) => {
                                         // id="flexCheckDefault"
                                         onChange={(event) => handleHandleCheckBox(event, a.id, data.questionId)} />
                                     <label className="form-check-label">
-                                        A.{a.description}
+                                        {String.fromCharCode(65 + index)}. {a.description}
                                     </label>
                                 </div>
                             </div>
