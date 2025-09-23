@@ -41,7 +41,7 @@ const Question = (props) => {
                                     </label>
                                 </div>
                             </div>
-                        )
+                        )   
                     })
 
                 }

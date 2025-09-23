@@ -8,26 +8,26 @@ import { v4 as uuidv4 } from "uuid";
 import _ from "lodash"
 import Lightbox from "react-awesome-lightbox";
 import { getAllQuizForAdmin, postCreacteNewQuestionForQuiz, postCreacteNewAnswerForQuestion } from '../../../../services/apiServices';
+import { toast } from 'react-toastify';
 
 const Questions = () => {
+    const initQuestions = [
+        {
+            id: uuidv4(),
+            description: '',
+            image: '',
+            imageName: '',
+            answers: [
+                {
+                    id: uuidv4(),
+                    description: '',
+                    isCorrect: false
+                }
+            ]
+        }
+    ]
 
-    const [questions, setQuestions] = useState(
-        [
-            {
-                id: uuidv4(),
-                description: '',
-                image: '',
-                imageName: '',
-                answers: [
-                    {
-                        id: uuidv4(),
-                        description: '',
-                        isCorrect: false
-                    }
-                ]
-            }
-        ]
-    )
+    const [questions, setQuestions] = useState(initQuestions)
 
     const [isPreviewImage, setIsPreviewImage] = useState(false);
     const [dataImagePreview, setDataImagePreview] = useState({
@@ -37,6 +37,7 @@ const Questions = () => {
 
     const [listQuiz, setListQuiz] = useState([]);
     const [selectedQuiz, setSelectedQuiz] = useState({});
+    const [actionError, setActionError] = useState("");
 
 
     useEffect(() => {
@@ -132,7 +133,10 @@ const Questions = () => {
             questionsClone[index].answers = questionsClone[index].answers.map(answer => {
                 if (answer.id === answerId) {
                     if (type === 'CHECKBOX') {
-                        answer.isCorrect = value;
+                        return {
+                            ...answer,
+                            isCorrect: answer.id === answerId ? value : false
+                        };
                     }
                     if (type === 'INPUT') {
                         answer.description = value;
@@ -144,18 +148,70 @@ const Questions = () => {
         setQuestions(questionsClone);
     }
 
-    const handleSubmitQuestionForQuiz = async() => {
-        console.log(questions, selectedQuiz)
+    const handleSubmitQuestionForQuiz = async () => {
+        //todo
+        if (_.isEmpty(selectedQuiz)) {
+            toast.error("please choose a Quiz")
+            return;
+        }
 
-        await Promise.all(questions.map(async(question) => {
-            const q =await postCreacteNewQuestionForQuiz(
-                +selectedQuiz.value, 
-                question.description, 
-                question.imageFile);
-            await Promise.all(question.answers.map (async(answer) => {
-                await postCreacteNewAnswerForQuestion(answer.description, answer.isCorrect, q.DT.id)
-            }))
-        }));
+        let isValidQuestion = true;
+        let isValidAnswers = true;
+        let indexQ = 0, indexA = 0;
+        let countIsCorrect = false;
+        for (let i = 0; i < questions.length; i++) {
+            if (!questions[i].description || questions[i].answers.length < 2) {
+                isValidQuestion = false;
+                indexQ = i;
+                break;
+            }
+            for (let j = 0; j < questions[i].answers.length; j++) {
+                if (!questions[i].answers[j].description) {
+                    isValidAnswers = false;
+                    indexA = j;
+                    break;
+                }
+                if (questions[i].answers[j].isCorrect === true) {
+                    countIsCorrect = true;
+                    break;
+                }
+            }
+            indexQ = i;
+            if (isValidAnswers === false) break;
+            if (countIsCorrect === false) break;
+        }
+
+        if (isValidQuestion === false) {
+            toast.error(`Not empty Question ${indexQ + 1} or Answer of Question > 1`);
+            setActionError("is-invalid")
+            return;
+        }
+        if (isValidAnswers === false) {
+            toast.error(`Not empty Answer ${indexA + 1} of Question ${indexQ + 1}`);
+            setActionError("is-invalid")
+            return;
+        }
+
+        if (countIsCorrect === false) {
+            toast.error(`Question ${indexQ + 1} must have a Answer correct!`);
+            return;
+        }
+
+        //validate data
+        for (const question of questions) {
+            const q = await postCreacteNewQuestionForQuiz(
+                +selectedQuiz.value,
+                question.description,
+                question.imageFile
+            )
+            for (const answer of question.answers) {
+                await postCreacteNewAnswerForQuestion(
+                    answer.description, answer.isCorrect, q.DT.id
+                )
+            }
+        }
+        toast.success("Create Questions and Answers is successed!")
+        setQuestions(initQuestions)
     }
 
     const handlePreviewImage = (questionId) => {
@@ -169,7 +225,6 @@ const Questions = () => {
             setIsPreviewImage(true);
         }
     }
-
     return (
         <div className="questions-container">
             <div className="title">
@@ -195,7 +250,7 @@ const Questions = () => {
                                 <div className='questions-content'>
                                     <div className="form-floating description">
                                         <input type="text"
-                                            className="form-control"
+                                            className={`form-control ${question.description ? "" : actionError}`}
                                             placeholder="name@example.com"
                                             value={question.description}
                                             onChange={(event) => handleOnchange('QUESTION', question.id, event.target.value)}
@@ -242,7 +297,7 @@ const Questions = () => {
                                                     <input
                                                         value={answers.description}
                                                         type="text"
-                                                        className="form-control"
+                                                        className={`form-control ${answers.description ? "" : actionError}`}
                                                         placeholder="name@example.com"
                                                         onChange={(event) => handleAnswerQuestion('INPUT', answers.id, question.id, event.target.value)}
                                                     />

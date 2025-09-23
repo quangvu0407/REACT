@@ -9,7 +9,7 @@ import HomePage from './components/Home/HomePage';
 import DashBoard from './components/Admin/content/DashBoard';
 import ManagerUser from './components/Admin/content/ManageUser';
 import Login from './components/Auth/Login';
-import { ToastContainer} from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import Register from './components/Auth/Register';
 import ListQuiz from './components/Users/ListQuiz';
 import DetailQuiz from './components/Users/DetailQuiz';
@@ -31,9 +31,9 @@ const Layout = (props) => {
                 <Route path="/" element={<App />}>
                     <Route index element={<HomePage />} />
                     <Route path="users" element={<ListQuiz />} />
-
+                    <Route path="/quiz/:id" element={<DetailQuiz />} />
                 </Route>
-                <Route path="/quiz/:id" element={<DetailQuiz />} />
+
 
                 <Route path="admins" element={<Admin />} >
                     <Route index element={<DashBoard />} />
@@ -44,9 +44,9 @@ const Layout = (props) => {
 
                 <Route path='login' element={<Login />}></Route>
                 <Route path='register' element={<Register />}></Route>
-                <Route path='*' element= {<NotFound />}></Route>
+                <Route path='*' element={<NotFound />}></Route>
             </Routes>
-            
+
             <ToastContainer
                 position="bottom-center"
                 autoClose={5000}

@@ -34,12 +34,10 @@ const DetailQuiz = (props) => {
         let dataQuizClone = _.cloneDeep(dataQuiz)
         let question = dataQuizClone.find(item => +item.questionId === +questionId)
         if (question && question.answers) {
-            question.answers = question.answers.map((item) => {
-                if (+item.id === +answerId) {
-                    item.isSelected = !item.isSelected;
-                }
-                return item;
-            })
+            question.answers = question.answers.map((item) => ({
+                ...item,
+                isSelected: +item.id === +answerId
+            }))
 
         }
 
@@ -78,7 +76,7 @@ const DetailQuiz = (props) => {
             setDataQuiz(data)
         }
     }
-    
+
 
     const handleFinishQuiz = async () => {
         console.log("check data ", dataQuiz)

@@ -2,12 +2,14 @@ import './ManageQuiz.scss';
 import Select from 'react-select';
 import { FcPlus } from 'react-icons/fc';
 import { useEffect, useState } from 'react';
-import { postCreateNewQuiz } from '../../../../services/apiServices';
 import { toast } from 'react-toastify';
-import TableQuiz from './TableQuiz';
+import Lightbox from "react-awesome-lightbox";
+
 import Accordion from 'react-bootstrap/Accordion';
 import { getAllQuizForAdmin } from '../../../../services/apiServices';
+import { postCreateNewQuiz } from '../../../../services/apiServices';
 
+import TableQuiz from './TableQuiz';
 import ModalDeleteQuiz from "./ModalDeleteQuiz";
 import ModalUpdateQuiz from './ModalUpdateQuiz';
 import ModalViewQuiz from './ModalViewQuiz';
@@ -28,9 +30,16 @@ const ManageQuiz = (props) => {
     const [showModalView, setShowModalView] = useState(false);
 
     const [quiz, setQuiz] = useState({});
-    const [quizUpdate, setQuizUpdate] = useState({})
-    const [quizView, setQuizView] = useState({})
+    const [quizUpdate, setQuizUpdate] = useState({});
+    const [quizView, setQuizView] = useState({});
     const [listQuiz, setListQuiz] = useState([]);
+    const [imageName, setImageName] = useState("");
+    const [isPreviewImage, setIsPreviewImage] = useState(false);
+    const [dataImagePreview, setDataImagePreview] = useState({
+        url: '',
+        title: ''
+    })
+
 
     useEffect(() => {
         fetchQuiz()
@@ -46,6 +55,7 @@ const ManageQuiz = (props) => {
     const handleChangeFile = (event) => {
         if (event.target && event.target.files && event.target.files[0]) {
             setImage(event.target.files[0]);
+            setImageName(event.target.files[0].name)
         }
     }
 
@@ -61,6 +71,7 @@ const ManageQuiz = (props) => {
             setName('')
             setDescription('')
             setImage(null)
+            setImageName('')
             fetchQuiz()
         }
         else {
@@ -87,9 +98,17 @@ const ManageQuiz = (props) => {
         setQuizUpdate({})
     }
 
+    const handlePreviewImage = () => {
+        setDataImagePreview({
+            url: URL.createObjectURL(image),
+            title: imageName
+        })
+        setIsPreviewImage(true);
+    }
+
     return (
         <div className="quiz-container">
-            <Accordion defaultActiveKey="1">
+            <Accordion defaultActiveKey={[]} alwaysOpen>
                 <Accordion.Item eventKey="0">
                     <Accordion.Header>Manage Quizzes</Accordion.Header>
                     <Accordion.Body>
@@ -129,11 +148,14 @@ const ManageQuiz = (props) => {
                                         Upolad File Image</label>
                                     <input
                                         type="file"
-                                        // hidden
+                                        hidden
                                         id='label-upload'
                                         className='form-control'
                                         onChange={(event) => handleChangeFile(event)}
                                     />
+                                    <span className='mx-2' >{imageName ?
+                                        <span onClick={() => handlePreviewImage()}>{imageName}</span>
+                                        : "0 file input upload"}</span>
                                 </div>
                                 <div className='mt-3'>
                                     <button className='btn btn-warning '
@@ -144,35 +166,47 @@ const ManageQuiz = (props) => {
                         </div>
                     </Accordion.Body>
                 </Accordion.Item>
+                <Accordion.Item eventKey="1">
+                    <Accordion.Header>List Of Quiz</Accordion.Header>
+                    <Accordion.Body>
+                        <div className='quiz-content'>
+                            <div className="list-detail">
+                                <TableQuiz
+                                    listQuiz={listQuiz}
+                                    handleClickBtnDelete={handleClickBtnDelete}
+                                    handleClickBtnUpdate={handleClickBtnUpdate}
+                                    handleClickBtnView={handleClickBtnView}
+                                />
+                            </div>
+                            <ModalDeleteQuiz
+                                show={showModalDelete}
+                                setShow={setShowModalDelete}
+                                quiz={quiz}
+                                fetchQuiz={fetchQuiz}
+                            />
+                            <ModalUpdateQuiz
+                                show={showModalUpdate}
+                                setShow={setShowModalUpdate}
+                                quiz={quizUpdate}
+                                resetUpdateQuiz={resetUpdateQuiz}
+                                fetchQuiz={fetchQuiz}
+                            />
+                            <ModalViewQuiz
+                                show={showModalView}
+                                setShow={setShowModalView}
+                                quiz={quizView}
+                            />
+                        </div>
+                    </Accordion.Body>
+                </Accordion.Item>
             </Accordion>
-            <div className='quiz-content'>
-                <div className="list-detail">
-                    <TableQuiz
-                        listQuiz={listQuiz}
-                        handleClickBtnDelete={handleClickBtnDelete}
-                        handleClickBtnUpdate={handleClickBtnUpdate}
-                        handleClickBtnView={handleClickBtnView}
-                    />
-                </div>
-                <ModalDeleteQuiz
-                    show={showModalDelete}
-                    setShow={setShowModalDelete}
-                    quiz={quiz}
-                    fetchQuiz={fetchQuiz}
-                />
-                <ModalUpdateQuiz
-                    show={showModalUpdate}
-                    setShow={setShowModalUpdate}
-                    quiz={quizUpdate}
-                    resetUpdateQuiz={resetUpdateQuiz}
-                    fetchQuiz={fetchQuiz}
-                />
-                <ModalViewQuiz
-                    show={showModalView}
-                    setShow={setShowModalView}
-                    quiz={quizView}
-                />
-            </div>
+            {isPreviewImage === true &&
+                <Lightbox
+                    image={dataImagePreview.url}
+                    title={dataImagePreview.title}
+                    onClose={() => setIsPreviewImage(false)}
+                ></Lightbox>
+            }
         </div>
     )
 }
