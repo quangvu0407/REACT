@@ -13,6 +13,8 @@ import TableQuiz from './TableQuiz';
 import ModalDeleteQuiz from "./ModalDeleteQuiz";
 import ModalUpdateQuiz from './ModalUpdateQuiz';
 import ModalViewQuiz from './ModalViewQuiz';
+import QuizQA from './QuizQA';
+import AssignQuiz from './AssignQuiz';
 
 const options = [
     { value: 'EASY', label: 'EASY' },
@@ -164,11 +166,6 @@ const ManageQuiz = (props) => {
                                 </div>
                             </fieldset>
                         </div>
-                    </Accordion.Body>
-                </Accordion.Item>
-                <Accordion.Item eventKey="1">
-                    <Accordion.Header>List Of Quiz</Accordion.Header>
-                    <Accordion.Body>
                         <div className='quiz-content'>
                             <div className="list-detail">
                                 <TableQuiz
@@ -199,15 +196,31 @@ const ManageQuiz = (props) => {
                         </div>
                     </Accordion.Body>
                 </Accordion.Item>
+                <Accordion.Item eventKey="1">
+                    <Accordion.Header>Update Q/A Quizzes</Accordion.Header>
+                    <Accordion.Body>
+                        <QuizQA/>
+                    </Accordion.Body>
+                </Accordion.Item>
+
+                <Accordion.Item eventKey="2">
+                    <Accordion.Header>Assign to Users</Accordion.Header>
+                    <Accordion.Body>
+                        <div className='quiz-content'>
+                            <AssignQuiz/>
+                        </div>
+                    </Accordion.Body>
+                </Accordion.Item>
             </Accordion>
-            {isPreviewImage === true &&
+            {
+                isPreviewImage === true &&
                 <Lightbox
                     image={dataImagePreview.url}
                     title={dataImagePreview.title}
                     onClose={() => setIsPreviewImage(false)}
                 ></Lightbox>
             }
-        </div>
+        </div >
     )
 }
 
