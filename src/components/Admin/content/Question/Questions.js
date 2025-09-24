@@ -131,13 +131,13 @@ const Questions = () => {
         let index = questionsClone.findIndex(item => item.id === questionId);
         if (index > -1) {
             questionsClone[index].answers = questionsClone[index].answers.map(answer => {
+                if (type === 'CHECKBOX') {
+                    return {
+                        ...answer,
+                        isCorrect: answer.id === answerId ? value : false
+                    };
+                }
                 if (answer.id === answerId) {
-                    if (type === 'CHECKBOX') {
-                        return {
-                            ...answer,
-                            isCorrect: answer.id === answerId ? value : false
-                        };
-                    }
                     if (type === 'INPUT') {
                         answer.description = value;
                     }
@@ -158,27 +158,32 @@ const Questions = () => {
         let isValidQuestion = true;
         let isValidAnswers = true;
         let indexQ = 0, indexA = 0;
-        let countIsCorrect = false;
         for (let i = 0; i < questions.length; i++) {
             if (!questions[i].description || questions[i].answers.length < 2) {
                 isValidQuestion = false;
                 indexQ = i;
                 break;
             }
+
+            let hasCorrectAnswer = false; // kiểm tra riêng cho từng câu hỏi
             for (let j = 0; j < questions[i].answers.length; j++) {
                 if (!questions[i].answers[j].description) {
                     isValidAnswers = false;
+                    indexQ = i;
                     indexA = j;
                     break;
                 }
                 if (questions[i].answers[j].isCorrect === true) {
-                    countIsCorrect = true;
-                    break;
+                    hasCorrectAnswer = true;
                 }
             }
-            indexQ = i;
-            if (isValidAnswers === false) break;
-            if (countIsCorrect === false) break;
+
+            if (!isValidAnswers) break;
+
+            if (!hasCorrectAnswer) {
+                toast.error(`Question ${i + 1} must have at least one correct Answer!`);
+                return;
+            }
         }
 
         if (isValidQuestion === false) {
@@ -189,11 +194,6 @@ const Questions = () => {
         if (isValidAnswers === false) {
             toast.error(`Not empty Answer ${indexA + 1} of Question ${indexQ + 1}`);
             setActionError("is-invalid")
-            return;
-        }
-
-        if (countIsCorrect === false) {
-            toast.error(`Question ${indexQ + 1} must have a Answer correct!`);
             return;
         }
 

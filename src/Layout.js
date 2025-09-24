@@ -15,6 +15,7 @@ import ListQuiz from './components/Users/ListQuiz';
 import DetailQuiz from './components/Users/DetailQuiz';
 import ManageQuiz from './components/Admin/content/Quiz/ManageQuiz';
 import Questions from './components/Admin/content/Question/Questions';
+import { Suspense } from 'react';
 
 const NotFound = () => {
     return (
@@ -26,14 +27,16 @@ const NotFound = () => {
 
 const Layout = (props) => {
     return (
-        <>
+        <Suspense fallback={<div>Loading...</div>}>
             <Routes>
                 <Route path="/" element={<App />}>
                     <Route index element={<HomePage />} />
-                    <Route path="users" element={<ListQuiz />} />
-                    <Route path="/quiz/:id" element={<DetailQuiz />} />
-                </Route>
+                    <Route path="users" element={
+                        <ListQuiz />
+                    } />
 
+                </Route>
+                <Route path="/quiz/:id" element={<DetailQuiz />} />
 
                 <Route path="admins" element={<Admin />} >
                     <Route index element={<DashBoard />} />
@@ -58,7 +61,7 @@ const Layout = (props) => {
                 draggable
                 pauseOnHover
             />
-        </>
+        </Suspense>
     )
 }
 
