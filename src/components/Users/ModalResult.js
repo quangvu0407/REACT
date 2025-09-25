@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import _ from "lodash";
 
 const ModalResult = (props) => {
-    const { show, setShow, dataModalResult} = props;
+    const { show, setShow, dataModalResult } = props;
 
     const handleClose = () => {
         setShow(false);
@@ -23,8 +23,8 @@ const ModalResult = (props) => {
                     <Modal.Title>Your result</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <div>Total questions: <b>{dataModalResult.countCorrect}</b></div>
-                    <div>Total correct answers: <b>{dataModalResult.countTotal}</b></div>
+                    <div>Total correct answers: <b>{dataModalResult.countCorrect}</b></div>
+                    <div>Total questions: <b>{dataModalResult.countTotal}</b></div>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>

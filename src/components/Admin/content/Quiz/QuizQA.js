@@ -7,7 +7,7 @@ import { RiImageAddFill } from "react-icons/ri"
 import { v4 as uuidv4 } from "uuid";
 import _ from "lodash"
 import Lightbox from "react-awesome-lightbox";
-import { getQuizWithQA, getAllQuizForAdmin, postCreacteNewQuestionForQuiz, postCreacteNewAnswerForQuestion } from '../../../../services/apiServices';
+import { getQuizWithQA, getAllQuizForAdmin, postCreacteNewQuestionForQuiz, postCreacteNewAnswerForQuestion, postUpsertQA } from '../../../../services/apiServices';
 import { toast } from 'react-toastify';
 
 const QuizQA = () => {
@@ -61,12 +61,12 @@ const QuizQA = () => {
         let res = await getQuizWithQA(selectedQuiz.value)
         if (res && res.EC === 0) {
             let newQA = [];
-            for (let i = 0; i < res.DT.qa.length; i++){
+            for (let i = 0; i < res.DT.qa.length; i++) {
                 let q = res.DT.qa[i];
-                if(q.imageFile){
+                if (q.imageFile) {
                     q.imageName = `Question-${q.id}.png`
                     q.imageFile =
-                    await urltoFile(`data:image/png;base64,${q.imageFile}`, `Question-${q.id}.png`,'image/png')
+                        await urltoFile(`data:image/png;base64,${q.imageFile}`, `Question-${q.id}.png`, 'image/png')
                 }
                 newQA.push(q)
             }
@@ -95,7 +95,7 @@ const QuizQA = () => {
             const newquestion = {
                 id: uuidv4(),
                 description: '',
-                image: '',
+                imageFile: '',
                 imageName: '',
                 answers: [
                     {
@@ -164,13 +164,13 @@ const QuizQA = () => {
         let index = questionsClone.findIndex(item => item.id === questionId);
         if (index > -1) {
             questionsClone[index].answers = questionsClone[index].answers.map(answer => {
+                if (type === 'CHECKBOX') {
+                    return {
+                        ...answer,
+                        isCorrect: answer.id === answerId ? value : false
+                    };
+                }
                 if (answer.id === answerId) {
-                    if (type === 'CHECKBOX') {
-                        return {
-                            ...answer,
-                            isCorrect: answer.id === answerId ? value : false
-                        };
-                    }
                     if (type === 'INPUT') {
                         answer.description = value;
                     }
@@ -191,27 +191,32 @@ const QuizQA = () => {
         let isValidQuestion = true;
         let isValidAnswers = true;
         let indexQ = 0, indexA = 0;
-        let countIsCorrect = false;
         for (let i = 0; i < questions.length; i++) {
             if (!questions[i].description || questions[i].answers.length < 2) {
                 isValidQuestion = false;
                 indexQ = i;
                 break;
             }
+
+            let hasCorrectAnswer = false; // kiểm tra riêng cho từng câu hỏi
             for (let j = 0; j < questions[i].answers.length; j++) {
                 if (!questions[i].answers[j].description) {
                     isValidAnswers = false;
+                    indexQ = i;
                     indexA = j;
                     break;
                 }
                 if (questions[i].answers[j].isCorrect === true) {
-                    countIsCorrect = true;
-                    break;
+                    hasCorrectAnswer = true;
                 }
             }
-            indexQ = i;
-            if (isValidAnswers === false) break;
-            if (countIsCorrect === false) break;
+
+            if (!isValidAnswers) break;
+
+            if (!hasCorrectAnswer) {
+                toast.error(`Question ${i + 1} must have at least one correct Answer!`);
+                return;
+            }
         }
 
         if (isValidQuestion === false) {
@@ -225,27 +230,28 @@ const QuizQA = () => {
             return;
         }
 
-        if (countIsCorrect === false) {
-            toast.error(`Question ${indexQ + 1} must have a Answer correct!`);
-            return;
-        }
-
         //validate data
-        for (const question of questions) {
-            const q = await postCreacteNewQuestionForQuiz(
-                +selectedQuiz.value,
-                question.description,
-                question.imageFile
-            )
-            for (const answer of question.answers) {
-                await postCreacteNewAnswerForQuestion(
-                    answer.description, answer.isCorrect, q.DT.id
-                )
-            }
+        let questionClone = _.cloneDeep(questions);
+        for (let i = 0; i < questionClone.length; i++) {
+            if (questionClone[i].imageFile)
+                questionClone[i].imageFile = await toBase64(questionClone[i].imageFile)
         }
-        toast.success("Create Questions and Answers is successed!")
-        setQuestions(initQuestions)
+        console.log(questionClone)
+        let res = await postUpsertQA({
+            quizId: selectedQuiz.value,
+            questions: questionClone
+        });
+        console.log(res)
+        // toast.success("Create Questions and Answers is successed!")
+        // setQuestions(initQuestions)
     }
+
+    const toBase64 = file => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+    });
 
     const handlePreviewImage = (questionId) => {
         let questionsClone = _.cloneDeep(questions);

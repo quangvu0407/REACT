@@ -79,9 +79,6 @@ const Questions = () => {
             questionsClone = questionsClone.filter(item => item.id !== id);
             setQuestions(questionsClone)
         }
-
-        console.log(type, id)
-
     }
 
     const handleAddRemoveAnswer = (type, questionId, answerId) => {
@@ -210,6 +207,7 @@ const Questions = () => {
                 )
             }
         }
+        console.log()
         toast.success("Create Questions and Answers is successed!")
         setQuestions(initQuestions)
     }
