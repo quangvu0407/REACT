@@ -1,10 +1,12 @@
 // import logo from './logo.svg';
 import './App.scss';
 import Header from './components/Header/Header';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import PerfectScrollbar from 'react-perfect-scrollbar'
 
 const App = () => {
+  const location = useLocation();
+  const isDetailQuiz = location.pathname.startsWith("/quiz/");
   return (
     <div className="app-container">
       <div className='header-container'>
@@ -17,24 +19,15 @@ const App = () => {
         </div>
 
         <div className='app-content'>
-          <PerfectScrollbar>
+          {isDetailQuiz ? (
             <Outlet />
-          </PerfectScrollbar>
+          ) : (
+            <PerfectScrollbar>
+              <Outlet />
+            </PerfectScrollbar>
+          )}
         </div>
       </div>
-
-      {/* <div>
-        test Link
-        <div>
-          <button>
-            <Link to="/users ">go to user page</Link>
-          </button>
-          <button>
-            <Link to="/admins" >go to admin page</Link>
-          </button>
-
-        </div>
-      </div> */}
     </div >
   );
 }

@@ -119,6 +119,7 @@ const DetailQuiz = (props) => {
     // console.log(dataQuiz)
     return (
         <div className="detail-quiz-container">
+            <hr/>
             <div className="left-content">
                 <div className="title">
                     Quiz{quizId}: {location?.state?.quizTitle}
@@ -154,6 +155,8 @@ const DetailQuiz = (props) => {
             <div className="right-content">
                 <RightContent
                     dataQuiz = {dataQuiz}
+                    handleFinishQuiz = {handleFinishQuiz}s
+                    setIndex={setIndex}
                 />
             </div>
             <ModalResult

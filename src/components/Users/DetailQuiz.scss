@@ -2,14 +2,18 @@
     display: flex;
     gap: 20px;
     padding: 50px;
+    border: 1px solid red;
+    height: 100vh;
+    background-color: rgb(227, 220, 210);
 
     .left-content {
-        border: 2px solid rgb(241, 236, 236);
+        border: 2px solid rgb(165, 152, 152);
         width: 70%;
         border-radius: 5px;
         padding: 20px;
+        height: 90%;
 
-        .title {
+        .title {    
             font-weight: 600;
             font-size: 30px;
         }
@@ -55,10 +59,11 @@
     }
 
     .right-content {
-        border: 2px solid rgb(241, 236, 236);
+        border: 2px solid rgb(165, 152, 152);
         width: 30%;
         border-radius: 5px;
         padding: 20px;
+        height: 90%;  
 
         .main-timer {
             border-bottom: 1px dashed;
@@ -76,7 +81,7 @@
 
             .question {
                 border-radius: 50%;
-                border: 1px solid rgb(236, 156, 156);
+                border: 1px solid rgb(247, 95, 95);
                 height: 48px;
                 width: 48px;
                 display: flex;
@@ -86,6 +91,12 @@
 
                 &:hover {
                     color: red;
+                }
+                &.selected {
+                    background-color: rgba(100, 89, 87, 0.27);
+                }
+                &.clicked {
+                    background-color: rgb(221, 134, 134);
                 }
             }
         }

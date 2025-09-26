@@ -29,9 +29,7 @@ const Question = (props) => {
                     }
                 </div>
                 :
-                <div className='q-image'>
-
-                </div>
+                <> </>
             }
 
             <div className="question">
