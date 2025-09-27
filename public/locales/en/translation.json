@@ -8,6 +8,7 @@
         }
     },
     "header": {
+        "setting": "Setting",
         "home": "Home",
         "user": "User",
         "admin": "Admin",

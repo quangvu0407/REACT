@@ -8,6 +8,7 @@
         }
     },
     "header": {
+        "setting": "Cài đặt",
         "home": "Trang chủ",
         "user": "Người dùng",
         "admin": "quản trị viên",
