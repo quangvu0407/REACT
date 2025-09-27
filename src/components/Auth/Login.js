@@ -47,6 +47,13 @@ const Login = (props) => {
         }
     }
 
+    const handleOnKeyDown = (event) => {
+        console.log(event.key)
+        if(event && event.key === 'Enter') {
+            handleLogin();
+        }
+    }
+
     return (
         <div className="login-container">
             <div className="header">
@@ -82,6 +89,7 @@ const Login = (props) => {
                             value={password}
                             onChange={(event) => setPassword(event.target.value)}
                             placeholder='Nhập Password...'
+                            onKeyDown={(event) => handleOnKeyDown(event)}
                         ></input>
                     </div>
                     <span className='forgot-password'>Forgot a password</span>
