@@ -1,11 +1,14 @@
 import CountDown from "./CountDown";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const RightContent = (props) => {
     const [currentIndex, setCurrentIndex] = useState(null);
 
-    const { dataQuiz } = props;
+    const { dataQuiz, indexs } = props;
 
+    useEffect(() => {
+        setCurrentIndex(indexs);
+    }, [indexs]);
     const onTimeUp = () => {
         props.handleFinishQuiz();
     }

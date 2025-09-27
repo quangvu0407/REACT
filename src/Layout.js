@@ -16,6 +16,7 @@ import DetailQuiz from './components/Users/DetailQuiz';
 import ManageQuiz from './components/Admin/content/Quiz/ManageQuiz';
 import Questions from './components/Admin/content/Question/Questions';
 import { Suspense } from 'react';
+import PrivateRouter from './routers/PrivateRouter';
 
 const NotFound = () => {
     return (
@@ -32,13 +33,15 @@ const Layout = (props) => {
                 <Route path="/" element={<App />}>
                     <Route index element={<HomePage />} />
                     <Route path="users" element={
-                        <ListQuiz />
+                        <PrivateRouter><ListQuiz /></PrivateRouter>
                     } />
-                    <Route path="/quiz/:id" element={<DetailQuiz />} />
+                    <Route path="/quiz/:id" element={
+                        <DetailQuiz />
+                    } />
                 </Route>
 
 
-                <Route path="admins" element={<Admin />} >
+                <Route path="admins" element={<PrivateRouter><Admin /></PrivateRouter>} >
                     <Route index element={<DashBoard />} />
                     <Route path="manage-user" element={<ManagerUser />} />
                     <Route path="manage-quizzes" element={<ManageQuiz />} />
