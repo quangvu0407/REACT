@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { doLogin } from '../../redux/action/userAction';
 import { ImSpinner3 } from 'react-icons/im'
 import Language from '../Header/Language';
+import { useTranslation} from 'react-i18next';
 
 const Login = (props) => {
     const [email, setEmail] = useState("");
@@ -14,6 +15,7 @@ const Login = (props) => {
     const navigate = useNavigate()
     const Dispatch = useDispatch()
     const [isLoading, setIsLoading] = useState(false);
+    const {t} = useTranslation();
 
     const validateEmail = (email) => {
         return String(email)
@@ -26,11 +28,11 @@ const Login = (props) => {
     const handleLogin = async () => {
         const isValidEmail = validateEmail(email);
         if (!isValidEmail) {
-            toast.error("invalid email");
+            toast.error(t("login.toast.invalidEmail"));
             return;
         }
         if (!password) {
-            toast.error("invalid password");
+            toast.error(t("login.toast.invalidPassword"));
             return;
         }
         setIsLoading(true)
@@ -58,43 +60,43 @@ const Login = (props) => {
     return (
         <div className="login-container">
             <div className="header">
-                <span>Don't have an account yet?</span>
+                <span>{t("login.header.noAccount")}</span>
                 <button
                     onClick={() => { navigate('/register') }}
-                >Sign up</button>
+                >{t("login.header.signup")}</button>
                 <Language/> 
             </div>
             <div className="content col-4 mx-auto">
                 <div className="title">
-                    LOGIN
+                    {t("login.title")}
                 </div>
                 <div className="welcome">
-                    Hello, Who's this?
+                    {t("login.welcome")}
                 </div>
 
                 <div className="content-form">
                     <div className="form-group">
-                        <label>Email</label>
+                        <label>{t("form.email")}</label>
                         <input
                             type={"email"}
                             className="form-control"
                             value={email}
                             onChange={(event) => setEmail(event.target.value)}
-                            placeholder='Nhập email...'
+                            placeholder={t("form.emailPlaceholder")}
                         ></input>
                     </div>
                     <div className="form-group">
-                        <label>Password</label>
+                        <label>{t("form.password")}</label>
                         <input
                             type={"password"}
                             className="form-control"
                             value={password}
                             onChange={(event) => setPassword(event.target.value)}
-                            placeholder='Nhập Password...'
+                            placeholder={t("form.passwordPlaceholder")}
                             onKeyDown={(event) => handleOnKeyDown(event)}
                         ></input>
                     </div>
-                    <span className='forgot-password'>Forgot a password</span>
+                    <span className='forgot-password'>{t("login.forgotPassword")}</span>
                     <div>
                         <button
                             className='btn-submit'
@@ -102,13 +104,13 @@ const Login = (props) => {
                             disabled={isLoading}
                         >
                             {isLoading === true &&<ImSpinner3 className='load-icon' /> }
-                            <span>Login</span></button>
+                            <span>{t("login.login")}</span></button>
                     </div>
                     <div className='text-center'>
                         <span
                             className="back"
                             onClick={() => { navigate('/') }}
-                        > &#60;&#60; Go to Homepage</span>
+                        >{t("login.backHome")}</span>
                     </div>
                 </div>
             </div>

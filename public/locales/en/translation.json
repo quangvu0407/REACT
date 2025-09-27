@@ -1,0 +1,54 @@
+{
+    "homepage": {
+        "title1": "There's a better way to ask",
+        "title2": "Today is full of difficulties, and tomorrow will be too. But you cannot change anything about today, so try your best for tomorrow.",
+        "title3": {
+            "nologin": "Get started. it's free",
+            "login": "Doing quiz now !"
+        }
+    },
+    "header": {
+        "home": "Home",
+        "user": "User",
+        "admin": "Admin",
+        "login": "Log in",
+        "signup": "Sign up",
+        "profile": "Profile",
+        "logout": "Log Out"
+    },
+    "login": {
+        "header": {
+            "noAccount": "Don't have an account yet?",
+            "signup": "Sign up"
+        },
+        "title": "LOGIN",
+        "welcome": "Hello, Who's this?",
+        "forgotPassword": "Forgot a password?",
+        "login": "Login",
+        "backHome": "<< Go to Homepage",
+        "toast": {
+            "invalidEmail": "Invalid email",
+            "invalidPassword": "Invalid password"
+        }
+    },
+    "form": {
+        "email": "Email",
+        "emailPlaceholder": "Enter email...",
+        "password": "Password",
+        "passwordPlaceholder": "Enter password...",
+        "username": "Username",
+        "usernamePlaceholder": "Enter username..."
+    },
+    "register": {
+        "header": {
+            "haveAccount": "You already have an account?",
+            "login": "Login"
+        },
+        "title": "SIGN UP",
+        "welcome": "Create a new account?",
+        "button": {
+            "signup": "Sign up"
+        },
+        "backHome": "<< Back"
+    }
+}

@@ -1,0 +1,54 @@
+{
+    "homepage": {
+        "title1": "Có rất nhiều cách để hỏi",
+        "title2": " Hôm này có quá nhiều khó khăn, ngày mai cũng vậy. Nhưng hôm nay bạn không thể thay đổi được điều gì, hãy cố gắng vì ngày mai.",
+        "title3": {
+            "nologin": "Bắt đầu thôi nào ! Miễn phí mà :><:",
+            "login": "Làm bài ngay bây giờ !"
+        }
+    },
+    "header": {
+        "home": "Trang chủ",
+        "user": "Người dùng",
+        "admin": "quản trị viên",
+        "login": "Đăng Nhập",
+        "signup": "Đăng Kí",
+        "profile": "Tôi",
+        "logout": "Đăng xuất"
+    },
+    "login": {
+        "header": {
+            "noAccount": "Bạn chưa có tài khoản?",
+            "signup": "Đăng ký"
+        },
+        "title": "ĐĂNG NHẬP",
+        "welcome": "Xin chào, bạn là ai?",
+        "forgotPassword": "Quên mật khẩu?",
+        "login": "Đăng nhập",
+        "backHome": "<< Quay lại trang chủ",
+        "toast": {
+            "invalidEmail": "Email không hợp lệ",
+            "invalidPassword": "Mật khẩu không hợp lệ"
+        }
+    },
+    "form": {
+        "email": "Email",
+        "emailPlaceholder": "Nhập email...",
+        "password": "Mật khẩu",
+        "passwordPlaceholder": "Nhập mật khẩu...",
+        "username": "Tên đăng nhập",
+        "usernamePlaceholder": "Nhập tên đăng nhập..."
+    },
+    "register": {
+        "header": {
+            "haveAccount": "Bạn đã có tài khoản?",
+            "login": "Đăng nhập"
+        },
+        "title": "ĐĂNG KÝ",
+        "welcome": "Tạo một tài khoản mới?",
+        "button": {
+            "signup": "Đăng ký"
+        },
+        "backHome": "<< Quay lại"
+    }
+}

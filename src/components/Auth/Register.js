@@ -5,12 +5,14 @@ import './Register.scss'
 import { postRegister } from "../../services/apiServices";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import Language from "../Header/Language";
+import { useTranslation} from 'react-i18next';
 
 const Register = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [userName, setUserName] = useState("");
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+     const {t} = useTranslation();
 
     const [isShowPassword, setIsShowPassword] = useState(false);
 
@@ -25,11 +27,11 @@ const Register = () => {
     const handleRegister = async () => {
         const isValidEmail = validateEmail(email);
         if (!isValidEmail) {
-            toast.error("invalid email");
+            toast.error(t("login.toast.invalidEmail"));
             return;
         }
         if (!password) {
-            toast.error("invalid password");
+            toast.error(t("login.toast.invalidPassword"));
             return;
         }
         let data = await postRegister(email, userName, password);
@@ -46,48 +48,48 @@ const Register = () => {
     return (
         <div className="register-container">
             <div className="header">
-                <span>You have an account yet?</span>
+                <span>{t("register.header.haveAccount")}</span>
                 <button
                     onClick={() => { navigate('/login') }}
-                >Login</button>
+                >{t("login.login")}</button>
                 <Language/> 
             </div>
             <div className="content  col-4 mx-auto">
                 <div className="title">
-                    SIGN UP
+                    {t("register.title")}
                 </div>
                 <div className="welcome">
-                    Create a new account ?
+                    {t("register.welcome")}
                 </div>
                 <div className="content-form">
                     <div className="form-group">
-                        <label >Email</label>
+                        <label >{t("form.email")}</label>
                         <input
                             type="email"
                             className="form-control"
                             value={email}
                             onChange={(event) => setEmail(event.target.value)}
-                            placeholder="Nhập Email..."
+                            placeholder={t("form.emailPlaceholder")}
                         ></input>
                     </div>
                     <div className="form-group">
-                        <label>UserName</label>
+                        <label>{t("form.username")}</label>
                         <input
                             type="username"
                             className="form-control"
                             value={userName}
                             onChange={(event) => setUserName(event.target.value)}
-                            placeholder="Nhập UserName..."
+                            placeholder={t("form.usernamePlaceholder")}
                         ></input>
                     </div>
                     <div className='form-group pass-group'>
-                        <label>Password</label>
+                        <label>{t("form.password")}</label>
                         <input
                             type={isShowPassword ? "text" : "password"}
                             className="form-control"
                             value={password}
                             onChange={(event) => setPassword(event.target.value)}
-                            placeholder="Nhập Password..."
+                            placeholder={t("form.passwordPlaceholder")}
                         />
                         {isShowPassword ? (
                             <span
@@ -109,13 +111,13 @@ const Register = () => {
                         <button
                             className='btn-submit'
                             onClick={() => handleRegister()}
-                        >Sign up</button>
+                        >{t("register.button.signup")}</button>
                     </div>
                     <div className='text-center'>
                         <span
                             className="back"
                             onClick={() => { navigate('/') }}
-                        >&#60;&#60; back</span>
+                        >{t("register.backHome")}</span>
                     </div>
                 </div>
             </div>
