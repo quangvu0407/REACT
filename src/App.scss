@@ -21,6 +21,15 @@ body {
   }
 }
 
+.custom-dropdown .dropdown-menu {
+  min-width: 100px;
+  /* chỉnh chiều rộng dropdown */
+}
+
+.custom-dropdown .dropdown-item {
+  padding: 5px 10px;
+}
+
 .app-container {
   .header-container {
     .btn-login {
@@ -43,7 +52,7 @@ body {
         background: black;
       }
     }
-
+    
     .navbar {
       padding-top: 20px;
       z-index: 10;

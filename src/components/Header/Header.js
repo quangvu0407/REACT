@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logOut } from '../../services/apiServices';
 import { toast } from 'react-toastify';
 import { doLogOut } from '../../redux/action/userAction';
+import Language from './Language';
 
 const Header = () => {
     const account = useSelector(state => state.user.account)
@@ -20,9 +21,9 @@ const Header = () => {
         navigate("/register")
     }
 
-    const handleLogOut = async() => {
+    const handleLogOut = async () => {
         let res = await logOut(account.email, account.refresh_token);
-        if(res &&res.EC === 0) {
+        if (res && res.EC === 0) {
             Dispatch(doLogOut())
             navigate("/login")
         }
@@ -49,13 +50,12 @@ const Header = () => {
                                 <button className='btn-signup' onClick={() => handleRegister()}>Sign up</button>
                             </>
                             :
-                            <NavDropdown title="Settings" id="basic-nav-dropdown">
+                            <NavDropdown title="Settings" id="basic-nav-dropdown" className="custom-dropdown">
                                 <NavDropdown.Item >Profile</NavDropdown.Item>
                                 <NavDropdown.Item onClick={() => handleLogOut()}>Log Out</NavDropdown.Item>
                             </NavDropdown>
                         }
-
-
+                        <Language/>
 
                     </Nav>
                 </Navbar.Collapse>
