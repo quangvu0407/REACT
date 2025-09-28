@@ -12,11 +12,23 @@
         padding: 0;
 
         .admin-header {
-            height: 40px;
-            border: 1px solid green;
+            display: flex;
+            gap: 15px;
+            height: 60px;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px 0 20px;
+            border-bottom: 1px solid rgb(88, 94, 88);
 
-            svg {
-                margin-left: 30px;
+            .leftside {
+                cursor: pointer;
+                font-size: 20px;
+                color: red;
+            }
+
+            .rightside {
+                display: flex;
+                gap: 15px;
             }
         }
 
