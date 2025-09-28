@@ -2,11 +2,13 @@ import { ResponsiveContainer, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Le
 import './DashBoard.scss';
 import { getOverview } from '../../../services/apiServices';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const DashBoard = () => {
     const [dataOverview, setDataOverview] = useState([]);
     const [dataChart, setDataChart] = useState([]);
     const [dataUser, setDataUser] = useState([]);
+    const { t } = useTranslation();
 
     useEffect(() => {
         fetchDataOverview();
@@ -15,21 +17,20 @@ const DashBoard = () => {
     const fetchDataOverview = async () => {
         let res = await getOverview();
         if (res && res.EC === 0) {
-            console.log(res)
             setDataOverview(res.DT.others);
             setDataUser(res.DT.users);
-            let data = res.DT.others
+            let data = res.DT.others;
             setDataChart([
                 {
-                    "name": "Quizzes",
+                    "name": t("dashboard.chart.quizzes"),
                     "Qz": data?.countQuiz ?? 0
                 },
                 {
-                    "name": "Questions",
+                    "name": t("dashboard.chart.questions"),
                     "Qs": data?.countQuestions ?? 0
                 },
                 {
-                    "name": "Answers",
+                    "name": t("dashboard.chart.answers"),
                     "As": data?.countAnswers ?? 0
                 }
             ])
@@ -41,34 +42,34 @@ const DashBoard = () => {
         <div className="dashboard-container">
             <div className="title">
                 <div className='title1'>
-                    Analytics Dashboad
+                    {t("dashboard.title1")}
                 </div>
                 <div className='title2'>
-                    Have a lucky day! Let's work with numbers together.
+                    {t("dashboard.title2")}
                 </div>
-                <hr/>
+                <hr />
             </div>
             <div className='header'>
-                <div className='header1'>Statistical Parameters</div>
-                <div className='header2'>Bar chart of questions and answers in the test</div>
+                <div className='header1'>{t("dashboard.header1")}</div>
+                <div className='header2'>{t("dashboard.header2")}</div>
             </div>
             <div className='content'>
                 <div className='c-left'>
                     <div className='child'>
-                        <span className='text-1'>Total Users</span>
+                        <span className='text-1'>{t("dashboard.users.total")}</span>
                         <span className='text-2'>
                             {dataUser && dataUser.total ?
                                 <>{dataUser.total}</>
                                 : <>0</>
                             }
                         </span>
-                        <span >Users:
+                        <span>{t("dashboard.users.users")}: 
                             {dataUser && dataUser.countUsers ?
                                 <> {dataUser.countUsers}</>
                                 : <> 0</>
                             }
                         </span>
-                        <span >Admins:
+                        <span>{t("dashboard.users.admins")}: 
                             {dataUser && dataUser.countAdmin ?
                                 <> {dataUser.countAdmin}</>
                                 : <> 0</>
@@ -76,7 +77,7 @@ const DashBoard = () => {
                         </span>
                     </div>
                     <div className='child'>
-                        <span className='text-1'>Total Quizzes</span>
+                        <span className='text-1'>{t("dashboard.quizzes")}</span>
                         <span className='text-2'>
                             {dataOverview && dataOverview.countQuiz ?
                                 <>{dataOverview.countQuiz}</>
@@ -85,7 +86,7 @@ const DashBoard = () => {
                         </span>
                     </div>
                     <div className='child'>
-                        <span className='text-1'>Total Questions</span>
+                        <span className='text-1'>{t("dashboard.questions")}</span>
                         <span className='text-2'>
                             {dataOverview && dataOverview.countQuestions ?
                                 <>{dataOverview.countQuestions}</>
@@ -94,7 +95,7 @@ const DashBoard = () => {
                         </span>
                     </div>
                     <div className='child'>
-                        <span className='text-1'>Total Answers</span>
+                        <span className='text-1'>{t("dashboard.answers")}</span>
                         <span className='text-2'>
                             {dataOverview && dataOverview.countAnswers ?
                                 <>{dataOverview.countAnswers}</>

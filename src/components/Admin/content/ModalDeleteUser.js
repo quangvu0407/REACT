@@ -4,10 +4,11 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { toast } from 'react-toastify';
 import _ from "lodash";
+import { useTranslation } from "react-i18next";
 
 const ModalDeleteUser = (props) => {
     const { show, setShow, dataDelete, setDataDelete } = props;
-
+     const { t } = useTranslation();
     const handleClose = () => {
         setShow(false);
         setEmail("");
@@ -62,12 +63,12 @@ const ModalDeleteUser = (props) => {
                 className="modal-view-user"
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Delete user</Modal.Title>
+                    <Modal.Title>{t("manageuser.deleteuser")}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
                         <div className="col-md-12">
-                            <label className="form-label">Email</label>
+                            <label className="form-label">{t("manageuser.form.email")}</label>
                             <input
                                 type="email"
                                 className="form-control"
@@ -77,7 +78,7 @@ const ModalDeleteUser = (props) => {
                             />
                         </div>
                         <div className="col-md-12">
-                            <label className="form-label">Username</label>
+                            <label className="form-label">{t("manageuser.form.username")}</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -87,7 +88,7 @@ const ModalDeleteUser = (props) => {
                             />
                         </div>
                         <div className="col-md-12">
-                            <label className="form-label">Role</label>
+                            <label className="form-label">{t("manageuser.form.role")}</label>
                             <select
                                 className="form-select"
                                 value={role}
@@ -102,7 +103,7 @@ const ModalDeleteUser = (props) => {
                             {PreviewImage ?
                                 <img src={PreviewImage} />
                                 :
-                                <span>preview image</span>
+                                <span>{t("manageuser.previewimage")}</span>
                             }
 
                         </div>
@@ -110,10 +111,10 @@ const ModalDeleteUser = (props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        {t("manageuser.close")}
                     </Button>
                     <Button variant="primary" onClick={() => handleSubmitDeleteUser()}>
-                        Delete
+                        {t("manageuser.delete")}
                     </Button>
                 </Modal.Footer>
             </Modal>

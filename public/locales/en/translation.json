@@ -51,5 +51,140 @@
             "signup": "Sign up"
         },
         "backHome": "<< Back"
+    },
+    "dashboard": {
+        "title1": "Analytics Dashboard",
+        "title2": "Have a lucky day! Let's work with numbers together.",
+        "header1": "Statistical Parameters",
+        "header2": "Bar chart of questions and answers in the test",
+        "users": {
+            "total": "Total Users",
+            "users": "Users",
+            "admins": "Admins"
+        },
+        "quizzes": "Total Quizzes",
+        "questions": "Total Questions",
+        "answers": "Total Answers",
+        "chart": {
+            "quizzes": "Quizzes",
+            "questions": "Questions",
+            "answers": "Answers"
+        }
+    },
+    "sidebar": {
+        "dashboard": "Dashboard",
+        "features": "Features",
+        "manageUser": "Manage Users",
+        "manageQuiz": "Manage Quizzes",
+        "manageQuestion": "Manage Questions",
+        "viewSource": "View Source"
+    },
+    "manageuser": {
+        "title": "Manage User",
+        "addnewuser": "Add new user",
+        "viewuser": "View user",
+        "updateuser": "Update user",
+        "deleteuser": "Delete user",
+        "tableUser": {
+            "action": "Action",
+            "view": "View",
+            "update": "Update",
+            "delete": "Delete",
+            "notFound": "Not found data",
+            "next": "next",
+            "previous": "previous"
+        },
+        "form": {
+            "id": "ID",
+            "username": "Username",
+            "email": "Email",
+            "role": "Role",
+            "password": "Password"
+        },
+        "save": "Save",
+        "close": "Close",
+        "uploadimage": "Upolad File Image",
+        "previewimage": "preview image",
+        "delete": "Delete"
+    },
+    "managequiz": {
+        "title": "Manage Quizzes",
+        "addnew": {
+            "legend": "Add new Quiz",
+            "name": "Name",
+            "namePlaceholder": "Your quiz name",
+            "description": "Description",
+            "descriptionPlaceholder": "Your description",
+            "type": "Quiz type...",
+            "upload": "Upload File Image",
+            "nofile": "0 file input upload",
+            "save": "Save"
+        },
+        "accordion": {
+            "manage": "Manage Quizzes",
+            "updateqa": "Update Q/A Quizzes",
+            "assign": "Assign to Users"
+        },
+        "tableQuiz": {
+            "title": "List Quizzes",
+            "id": "Id",
+            "name": "Name",
+            "description": "Description",
+            "type": "Type",
+            "actions": "Actions",
+            "edit": "Edit",
+            "delete": "Delete",
+            "view": "View"
+        },
+        "assignquiz": {
+            "title": "Assign Quiz",
+            "selectquiz": "Select Quiz: ",
+            "selectuser": "Select User: ",
+            "assignbtn": "Assign",
+            "addquestion": "Add Question:",
+            "answer": "Answer",
+            "description": "Description of Question ",
+            "saveq": "Save Questions"
+        },
+        "deletequiz": {
+            "title": "Delete Quiz",
+            "confirm": "Are you sure you want to delete quiz with id: {{id}}?",
+            "close": "Close",
+            "delete": "Delete"
+        },
+        "updatequiz": {
+            "title": "Update Quiz",
+            "name": "Name",
+            "description": "Description",
+            "difficulty": "Difficulty",
+            "upload": "Upload File Image",
+            "preview": "Preview image",
+            "close": "Close",
+            "save": "Save"
+        },
+        "viewquiz": {
+            "title": "View Quiz",
+            "id": "Id",
+            "name": "Name",
+            "description": "Description",
+            "difficulty": "Difficulty",
+            "preview": "Preview image",
+            "close": "Close"
+        },
+        "question": {
+            "title": "Manage questions",
+            "selectQuiz": "Select Quiz",
+            "addQuestion": "Add Question",
+            "questionDescription": "Question {{index}}'s Description",
+            "upload": "0 file input upload",
+            "answer": "Answer {{index}}",
+            "save": "Save Questions"
+        }
+    },
+    "common": {
+        "close": "Close",
+        "cancel": "Cancel",
+        "notfound": "No data found",
+        "delete": "Delete"
     }
 }

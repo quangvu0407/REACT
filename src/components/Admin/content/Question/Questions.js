@@ -9,8 +9,10 @@ import _ from "lodash"
 import Lightbox from "react-awesome-lightbox";
 import { getAllQuizForAdmin, postCreacteNewQuestionForQuiz, postCreacteNewAnswerForQuestion } from '../../../../services/apiServices';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 const Questions = () => {
+    const { t } = useTranslation();
     const initQuestions = [
         {
             id: uuidv4(),
@@ -226,12 +228,12 @@ const Questions = () => {
     return (
         <div className="questions-container">
             <div className="title">
-                Manage questions
+                {t("managequiz.question.title")}
             </div>
             <hr />
             <div className="add-new-question">
                 <div className='col-6 form-group'>
-                    <label className='mb-2'>Select Quiz: </label>
+                    <label className='mb-2'>{t("managequiz.question.selectQuiz")}: </label>
                     <Select
                         value={selectedQuiz}
                         onChange={setSelectedQuiz}
@@ -239,7 +241,7 @@ const Questions = () => {
                     />
                 </div>
                 <div className='mt-3 mb-2'>
-                    Add Question:
+                    {t("managequiz.question.addQuestion")}:
                 </div>
                 {
                     questions && questions.map((question, index) => {
@@ -253,7 +255,8 @@ const Questions = () => {
                                             value={question.description}
                                             onChange={(event) => handleOnchange('QUESTION', question.id, event.target.value)}
                                         />
-                                        <label htmlFor="floatingInput">Question {index + 1} 's Description</label>
+                                        <label htmlFor="floatingInput">{t("managequiz.question.questionDescription", { index: index + 1 })}
+                                        </label>
                                     </div>
                                     <div className='group-upload'>
                                         <label htmlFor={`${question.id}`}>
@@ -267,7 +270,7 @@ const Questions = () => {
                                         />
                                         <span>{question.imageName ?
                                             <span onClick={() => handlePreviewImage(question.id)}>{question.imageName}</span>
-                                            : "0 file input upload"}</span>
+                                            : t("managequiz.question.upload")}</span>
                                     </div>
                                     <div className='btn-add'>
                                         <span onClick={() => handleAddRemoveQuestion('ADD', '')}>
@@ -299,7 +302,7 @@ const Questions = () => {
                                                         placeholder="name@example.com"
                                                         onChange={(event) => handleAnswerQuestion('INPUT', answers.id, question.id, event.target.value)}
                                                     />
-                                                    <label>answer {index + 1}</label>
+                                                    <label>{t("managequiz.question.answer", { index: index + 1 })}</label>
                                                 </div>
                                                 <div className='btn-group'>
                                                     <span onClick={() => handleAddRemoveAnswer('ADD', question.id, answers.id)}>
@@ -327,7 +330,7 @@ const Questions = () => {
                         <button
                             onClick={() => handleSubmitQuestionForQuiz()}
                         >
-                            Save Questions
+                            {t("managequiz.question.save")} 
                         </button>
                     </div>
                 }

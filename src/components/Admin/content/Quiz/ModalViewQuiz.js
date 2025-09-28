@@ -3,6 +3,8 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from 'react-icons/fc';
 import _ from "lodash";
+import { useTranslation } from 'react-i18next';
+
 const ModalViewQuiz = (props) => {
     const { show, setShow, quiz } = props;
 
@@ -14,7 +16,7 @@ const ModalViewQuiz = (props) => {
         setDifficulty("EASY");
         setQuizImage("");
     }
-
+    const { t } = useTranslation();
 
     const [id, setId] = useState('');
     const [description, setDescription] = useState('');
@@ -47,12 +49,12 @@ const ModalViewQuiz = (props) => {
                 className="modal-view-quiz"
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>View Quiz</Modal.Title>
+                    <Modal.Title>{t("managequiz.viewquiz.title")}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
                         <div className="col-md-12">
-                            <label className="form-label">Id</label>
+                            <label className="form-label">{t("managequiz.viewquiz.id")}</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -62,7 +64,7 @@ const ModalViewQuiz = (props) => {
                             />
                         </div>
                         <div className="col-md-12">
-                            <label className="form-label">Name</label>
+                            <label className="form-label">{t("managequiz.viewquiz.name")}</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -72,7 +74,7 @@ const ModalViewQuiz = (props) => {
                             />
                         </div>
                         <div className="col-md-12">
-                            <label className="form-label">Description</label>
+                            <label className="form-label">{t("managequiz.viewquiz.description")}</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -82,7 +84,7 @@ const ModalViewQuiz = (props) => {
                             />
                         </div>
                         <div className="col-md-12">
-                            <label className="form-label">Difficulty</label>
+                            <label className="form-label">{t("managequiz.viewquiz.difficulty")}</label>
                             <select
                                 className="form-select"
                                 value={difficulty}
@@ -98,15 +100,14 @@ const ModalViewQuiz = (props) => {
                             {previewImage ?
                                 <img src={previewImage} />
                                 :
-                                <span>preview image</span>
+                                <span>{t("managequiz.viewquiz.preview")}</span>
                             }
-
                         </div>
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        {t("managequiz.viewquiz.close")}
                     </Button>
                 </Modal.Footer>
             </Modal>

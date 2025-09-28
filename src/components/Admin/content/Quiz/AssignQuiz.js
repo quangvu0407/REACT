@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Select from 'react-select';
 import { getAllQuizForAdmin, getAllUser, postAssignQuiz } from '../../../../services/apiServices';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 const AssignQuiz = () => {
     const [listQuiz, setListQuiz] = useState([]);
@@ -9,7 +10,7 @@ const AssignQuiz = () => {
 
     const [listUser, setListUser] = useState([]);
     const [selectedUser, setSelectedUser] = useState({});
-
+    const { t } = useTranslation();
     useEffect(() => {
         fetchQuiz()
         fetchUser()
@@ -28,9 +29,9 @@ const AssignQuiz = () => {
         }
     }
 
-    const handleAssign = async() => {
+    const handleAssign = async () => {
         let res = await postAssignQuiz(selectedQuiz.value, selectedUser.value)
-        if(res && res.EC === 0) {
+        if (res && res.EC === 0) {
             toast.success(res.EM)
             setSelectedQuiz({})
             setSelectedUser({})
@@ -56,7 +57,7 @@ const AssignQuiz = () => {
     return (
         <div className="assign-quiz-container row">
             <div className='col-6 form-group'>
-                <label className='mb-2'>Select Quiz: </label>
+                <label className='mb-2'>{t("managequiz.assignquiz.selectquiz")} </label>
                 <Select
                     value={selectedQuiz}
                     onChange={setSelectedQuiz}
@@ -64,7 +65,7 @@ const AssignQuiz = () => {
                 />
             </div>
             <div className='col-6 form-group'>
-                <label className='mb-2'>Select Quiz: </label>
+                <label className='mb-2'>{t("managequiz.assignquiz.selectuser")}</label>
                 <Select
                     value={selectedUser}
                     onChange={setSelectedUser}
@@ -75,7 +76,7 @@ const AssignQuiz = () => {
                 <button
                     className='btn btn-warning mt-3'
                     onClick={() => handleAssign()}
-                >Assign</button>
+                >{t("managequiz.assignquiz.assignbtn")}</button>
             </div>
         </div>
     )

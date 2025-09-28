@@ -5,10 +5,12 @@ import { FcPlus } from 'react-icons/fc';
 import { toast } from 'react-toastify';
 import { putUpdateUser } from '../../../services/apiServices';
 import _ from "lodash";
+import { useTranslation } from "react-i18next";
 
 const ModalUpdateUser = (props) => {
     const { show, setShow, dataUpdate } = props;
     console.log(dataUpdate)
+     const { t } = useTranslation();
     const handleClose = () => {
         setShow(false);
         setEmail("");
@@ -72,17 +74,17 @@ const ModalUpdateUser = (props) => {
             <Modal
                 show={show}
                 onHide={handleClose}
-                size='xl'
+                size='x'
                 backdrop="static"
                 className="modal-add-user"
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Update user</Modal.Title>
+                    <Modal.Title>{t("manageuser.updateuser")}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
                         <div className="col-md-6">
-                            <label className="form-label">Email</label>
+                            <label className="form-label">{t("manageuser.form.email")}</label>
                             <input
                                 type="email"
                                 className="form-control"
@@ -92,7 +94,7 @@ const ModalUpdateUser = (props) => {
                             />
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Password</label>
+                            <label className="form-label">{t("manageuser.form.password")}</label>
                             <input
                                 type="password"
                                 className="form-control"
@@ -102,7 +104,7 @@ const ModalUpdateUser = (props) => {
                             />
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Username</label>
+                            <label className="form-label">{t("manageuser.form.username")}</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -111,7 +113,7 @@ const ModalUpdateUser = (props) => {
                             />
                         </div>
                         <div className="col-md-4">
-                            <label className="form-label">Role</label>
+                            <label className="form-label">{t("manageuser.form.role")}</label>
                             <select className="form-select"
                                 value={role}
                                 onChange={(ev) => setRole(ev.target.value)}>
@@ -122,7 +124,7 @@ const ModalUpdateUser = (props) => {
                         <div className='col-md-12'>
                             <label className="form-label label-upload" htmlFor='label-upload'>
                                 <FcPlus className='icon-upload' />
-                                Upolad File Image</label>
+                                {t("manageuser.uploadimage")}</label>
                             <input
                                 type="file"
                                 hidden
@@ -135,7 +137,7 @@ const ModalUpdateUser = (props) => {
                             {PreviewImage ?
                                 <img src={PreviewImage} />
                                 :
-                                <span>preview image</span>
+                                <span>{t("manageuser.previewimage")}</span>
                             }
 
                         </div>

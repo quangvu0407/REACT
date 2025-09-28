@@ -1,16 +1,17 @@
 import ReactPaginate from "react-paginate";
+import { useTranslation } from "react-i18next";
 import React, {
     useEffect,
     useState
 } from "react";
 
 const TableUserPaginate = (props) => {
-
+    const { t } = useTranslation();
     const { listUsers, pageCount } = props;
 
     const handlePageClick = (event) => {
         props.fetchListUserWithPaginate(+event.selected + 1)
-        props.setCurrentPage(+event.selected +1);
+        props.setCurrentPage(+event.selected + 1);
         console.log(`User requested page number ${event.selected}`);
     };
     return (
@@ -18,11 +19,11 @@ const TableUserPaginate = (props) => {
             <table className="table table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">UserName</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Role</th>
-                        <th >Action</th>
+                        <th scope="col">{t("manageuser.form.id")}</th>
+                        <th scope="col">{t("manageuser.form.username")}</th>
+                        <th scope="col">{t("manageuser.form.email")}</th>
+                        <th scope="col">{t("manageuser.form.role")}</th>
+                        <th>{t("manageuser.tableUser.action")}</th>
                     </tr>
                 </thead>
 
@@ -37,33 +38,42 @@ const TableUserPaginate = (props) => {
                                 <td>
                                     <button
                                         className="btn btn-secondary"
-                                        onClick={() => props.handClickBtnView(item)}>View</button>
+                                        onClick={() => props.handClickBtnView(item)}
+                                    >
+                                        {t("manageuser.tableUser.view")}
+                                    </button>
                                     <button
                                         className="btn btn-warning mx-3"
-                                        onClick={() => props.handleClickBtnUpdate(item)}>Update</button>
+                                        onClick={() => props.handleClickBtnUpdate(item)}
+                                    >
+                                        {t("manageuser.tableUser.update")}
+                                    </button>
                                     <button
                                         className="btn btn-danger"
-                                        onClick={() => props.handClickBtnDelete(item)}>Delete</button>
+                                        onClick={() => props.handClickBtnDelete(item)}
+                                    >
+                                        {t("manageuser.tableUser.delete")}
+                                    </button>
                                 </td>
                             </tr>
                         )
                     })}
                     {listUsers && listUsers.length === 0 &&
                         <tr>
-                            <td colSpan={"4"}>
-                                Not found data
+                            <td colSpan="5" className="text-center">
+                                {t("manageuser.tableUser.notFound")}
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
             <ReactPaginate
-                nextLabel="next >"
+                nextLabel={t("manageuser.tableUser.next")}
                 onPageChange={handlePageClick}
                 pageRangeDisplayed={3}
                 marginPagesDisplayed={2}
                 pageCount={pageCount}
-                previousLabel="< previous"
+                previousLabel={t("manageuser.tableUser.previous")}
                 pageClassName="page-item"
                 pageLinkClassName="page-link"
                 previousClassName="page-item"
@@ -76,7 +86,7 @@ const TableUserPaginate = (props) => {
                 containerClassName="pagination"
                 activeClassName="active"
                 renderOnZeroPageCount={null}
-                forcePage={props.currentPage-1}
+                forcePage={props.currentPage - 1}
             />
         </>
     )

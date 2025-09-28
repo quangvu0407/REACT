@@ -3,8 +3,10 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from 'react-icons/fc';
 import _ from "lodash";
+import { useTranslation } from "react-i18next";
 const ModalViewUser = (props) => {
     const { show, setShow, dataView, setDataView } = props;
+     const { t } = useTranslation();
 
     const handleClose = () => {
         setShow(false);
@@ -44,12 +46,12 @@ const ModalViewUser = (props) => {
                 className="modal-view-user"
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>View user</Modal.Title>
+                    <Modal.Title>{t("manageuser.viewuser")}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
                         <div className="col-md-12">
-                            <label className="form-label">Email</label>
+                            <label className="form-label">{t("manageuser.form.email")}</label>
                             <input
                                 type="email"
                                 className="form-control"
@@ -59,7 +61,7 @@ const ModalViewUser = (props) => {
                             />
                         </div>
                         <div className="col-md-12">
-                            <label className="form-label">Username</label>
+                            <label className="form-label">{t("manageuser.form.username")}</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -69,7 +71,7 @@ const ModalViewUser = (props) => {
                             />
                         </div>
                         <div className="col-md-12">
-                            <label className="form-label">Role</label>
+                            <label className="form-label">{t("manageuser.form.role")}</label>
                             <select
                                 className="form-select"
                                 value={role}
@@ -84,7 +86,7 @@ const ModalViewUser = (props) => {
                             {PreviewImage ?
                                 <img src={PreviewImage} />
                                 :
-                                <span>preview image</span>
+                                <span>{t("manageuser.previewimage")}</span>
                             }
 
                         </div>
@@ -92,7 +94,7 @@ const ModalViewUser = (props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        {t("manageuser.close")}
                     </Button>
                 </Modal.Footer>
             </Modal>

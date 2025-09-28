@@ -5,10 +5,11 @@ import Modal from 'react-bootstrap/Modal';
 import { toast } from 'react-toastify';
 import _ from "lodash";
 import { deleteQuiz } from '../../../../services/apiServices';
+import { useTranslation } from 'react-i18next';
 
 const ModalDeleteQuiz = (props) => {
     const { show, setShow, quiz } = props;
-
+    const { t } = useTranslation();
     const handleClose = () => {
         setShow(false);
     }
@@ -42,19 +43,19 @@ const ModalDeleteQuiz = (props) => {
                 className="modal-delete-quiz"
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Delete user</Modal.Title>
+                    <Modal.Title>{t("managequiz.deletequiz.title")}</Modal.Title>
                 </Modal.Header>
+
                 <Modal.Body>
-                    <div className='del-id'>
-                        You can delete quiz by id: <span>{quiz.id}</span>
-                    </div>
+                    {t("managequiz.deletequiz.confirm", { id: quiz.id })}
                 </Modal.Body>
+
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        {t("managequiz.deletequiz.close")}
                     </Button>
-                    <Button variant="primary" onClick={() => handleSubmitDeleteQuiz()}>
-                        Delete
+                    <Button variant="primary" onClick={handleSubmitDeleteQuiz}>
+                        {t("managequiz.deletequiz.delete")}
                     </Button>
                 </Modal.Footer>
             </Modal>

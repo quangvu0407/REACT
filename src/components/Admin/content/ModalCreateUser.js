@@ -4,9 +4,11 @@ import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from 'react-icons/fc';
 import { toast } from 'react-toastify';
 import { postCreateNewUser } from '../../../services/apiServices';
+import { useTranslation } from "react-i18next";
 
 const ModalCreactUser = (props) => {
     const { show, setShow } = props;
+    const { t } = useTranslation();
 
     const handleClose = () => {
         setShow(false);
@@ -60,7 +62,7 @@ const ModalCreactUser = (props) => {
             toast.success(data.EM)
             handleClose();
             // await props.fetchListUser()
-            props.setCurrentPage(1); 
+            props.setCurrentPage(1);
             await props.fetchListUserWithPaginate(1);
         }
         if (data && data.EC !== 0) {
@@ -81,12 +83,12 @@ const ModalCreactUser = (props) => {
                 className="modal-add-user"
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Add new user</Modal.Title>
+                    <Modal.Title>{t("manageuser.title")}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
                         <div className="col-md-6">
-                            <label className="form-label">Email</label>
+                            <label className="form-label">{t("manageuser.form.email")}</label>
                             <input
                                 type="email"
                                 className="form-control"
@@ -95,7 +97,7 @@ const ModalCreactUser = (props) => {
                             />
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Password</label>
+                            <label className="form-label">{t("manageuser.form.password")}</label>
                             <input
                                 type="password"
                                 className="form-control"
@@ -104,7 +106,7 @@ const ModalCreactUser = (props) => {
                             />
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Username</label>
+                            <label className="form-label">{t("manageuser.form.username")}</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -113,7 +115,7 @@ const ModalCreactUser = (props) => {
                             />
                         </div>
                         <div className="col-md-4">
-                            <label className="form-label">Role</label>
+                            <label className="form-label">{t("manageuser.form.role")}</label>
                             <select className="form-select" onChange={(ev) => setRole(ev.target.value)}>
                                 <option value="USER">USER</option>
                                 <option value="ADMIN">ADMIN</option>
@@ -122,7 +124,7 @@ const ModalCreactUser = (props) => {
                         <div className='col-md-12'>
                             <label className="form-label label-upload" htmlFor='label-upload'>
                                 <FcPlus className='icon-upload' />
-                                Upolad File Image</label>
+                                {t("manageuser.uploadimage")}</label>
                             <input
                                 type="file"
                                 hidden
@@ -135,7 +137,7 @@ const ModalCreactUser = (props) => {
                             {PreviewImage ?
                                 <img src={PreviewImage} />
                                 :
-                                <span>preview image</span>
+                                <span>{t("manageuser.previewimage")}</span>
                             }
 
                         </div>
@@ -143,10 +145,10 @@ const ModalCreactUser = (props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        {t("manageuser.close")}
                     </Button>
                     <Button variant="primary" onClick={() => handleSubmitCreateUser()}>
-                        Save
+                        {t("manageuser.save")}
                     </Button>
                 </Modal.Footer>
             </Modal>

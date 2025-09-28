@@ -6,9 +6,9 @@ import { toast } from 'react-toastify';
 import Lightbox from "react-awesome-lightbox";
 
 import Accordion from 'react-bootstrap/Accordion';
-import { getAllQuizForAdmin } from '../../../../services/apiServices';
-import { postCreateNewQuiz } from '../../../../services/apiServices';
+import { useTranslation } from "react-i18next";
 
+import { getAllQuizForAdmin, postCreateNewQuiz } from '../../../../services/apiServices';
 import TableQuiz from './TableQuiz';
 import ModalDeleteQuiz from "./ModalDeleteQuiz";
 import ModalUpdateQuiz from './ModalUpdateQuiz';
@@ -22,7 +22,8 @@ const options = [
     { value: 'HARD', label: 'HARD' },
 ];
 
-const ManageQuiz = (props) => {
+const ManageQuiz = () => {
+    const { t } = useTranslation();
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [type, setType] = useState('EASY');
@@ -40,8 +41,7 @@ const ManageQuiz = (props) => {
     const [dataImagePreview, setDataImagePreview] = useState({
         url: '',
         title: ''
-    })
-
+    });
 
     useEffect(() => {
         fetchQuiz()
@@ -62,12 +62,11 @@ const ManageQuiz = (props) => {
     }
 
     const handleSubmitQuiz = async () => {
-        let res = await postCreateNewQuiz(description, name, type?.value, image);
-        console.log("check res", res)
         if (!name || !description) {
-            toast.error('name/description is required...')
+            toast.error('name/description is required...');
             return;
         }
+        let res = await postCreateNewQuiz(description, name, type?.value, image);
         if (res && res.EC === 0) {
             toast.success(res.EM)
             setName('')
@@ -112,57 +111,63 @@ const ManageQuiz = (props) => {
         <div className="quiz-container">
             <Accordion defaultActiveKey={[]} alwaysOpen>
                 <Accordion.Item eventKey="0">
-                    <Accordion.Header>Manage Quizzes</Accordion.Header>
+                    <Accordion.Header>{t("managequiz.accordion.manage")}</Accordion.Header>
                     <Accordion.Body>
                         <div className="add-new">
                             <fieldset className="border border-dark rounded-3 p-3">
-                                <legend className="float-none w-auto px-3">Add new Quizzes</legend>
+                                <legend className="float-none w-auto px-3">{t("managequiz.addnew.legend")}</legend>
                                 <div className="form-floating mb-3">
                                     <input
                                         type="text"
                                         className="form-control"
-                                        placeholder='Your quiz name'
+                                        placeholder={t("managequiz.addnew.namePlaceholder")}
                                         value={name}
-                                        onChange={(event) => setName(event.target.value)}
+                                        onChange={(e) => setName(e.target.value)}
                                     />
-                                    <label >Name</label>
+                                    <label>{t("managequiz.addnew.name")}</label>
                                 </div>
                                 <div className="form-floating">
                                     <input
                                         type="text"
                                         className="form-control"
-                                        placeholder='your decription'
+                                        placeholder={t("managequiz.addnew.descriptionPlaceholder")}
                                         value={description}
-                                        onChange={(event) => setDescription(event.target.value)} />
-                                    <label htmlFor="floatingPassword">Description</label>
+                                        onChange={(e) => setDescription(e.target.value)}
+                                    />
+                                    <label>{t("managequiz.addnew.description")}</label>
                                 </div>
                                 <div className='my-3'>
                                     <Select
                                         defaultValue={type}
                                         onChange={setType}
                                         options={options}
-                                        placeholder="quiz type..."
+                                        placeholder={t("managequiz.addnew.type")}
                                     />
                                 </div>
                                 <div className='form-actions form-group'>
                                     <label className="form-label label-upload" htmlFor='label-upload'>
                                         <FcPlus className='icon-upload' />
-                                        Upolad File Image</label>
+                                        {t("managequiz.addnew.upload")}
+                                    </label>
                                     <input
                                         type="file"
                                         hidden
                                         id='label-upload'
                                         className='form-control'
-                                        onChange={(event) => handleChangeFile(event)}
+                                        onChange={(e) => handleChangeFile(e)}
                                     />
-                                    <span className='mx-2' >{imageName ?
-                                        <span onClick={() => handlePreviewImage()}>{imageName}</span>
-                                        : "0 file input upload"}</span>
+                                    <span className='mx-2'>
+                                        {imageName ?
+                                            <span onClick={() => handlePreviewImage()}>{imageName}</span>
+                                            : t("managequiz.addnew.nofile")}
+                                    </span>
                                 </div>
                                 <div className='mt-3'>
                                     <button className='btn btn-warning '
                                         onClick={() => handleSubmitQuiz()}
-                                    >Save</button>
+                                    >
+                                        {t("managequiz.addnew.save")}
+                                    </button>
                                 </div>
                             </fieldset>
                         </div>
@@ -196,32 +201,32 @@ const ManageQuiz = (props) => {
                         </div>
                     </Accordion.Body>
                 </Accordion.Item>
+
                 <Accordion.Item eventKey="1">
-                    <Accordion.Header>Update Q/A Quizzes</Accordion.Header>
+                    <Accordion.Header>{t("managequiz.accordion.updateqa")}</Accordion.Header>
                     <Accordion.Body>
-                        <QuizQA/>
+                        <QuizQA />
                     </Accordion.Body>
                 </Accordion.Item>
 
                 <Accordion.Item eventKey="2">
-                    <Accordion.Header>Assign to Users</Accordion.Header>
+                    <Accordion.Header>{t("managequiz.accordion.assign")}</Accordion.Header>
                     <Accordion.Body>
                         <div className='quiz-content'>
-                            <AssignQuiz/>
+                            <AssignQuiz />
                         </div>
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
-            {
-                isPreviewImage === true &&
+
+            {isPreviewImage &&
                 <Lightbox
                     image={dataImagePreview.url}
                     title={dataImagePreview.title}
                     onClose={() => setIsPreviewImage(false)}
-                ></Lightbox>
-            }
-        </div >
+                />}
+        </div>
     )
 }
 
-export default ManageQuiz
+export default ManageQuiz;

@@ -9,15 +9,18 @@ import {
     SidebarContent,
 } from 'react-pro-sidebar';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaTachometerAlt, FaGem, FaList, FaGithub, FaRegLaughWink, FaHeart } from 'react-icons/fa';
+import { FaTachometerAlt, FaGem, FaGithub } from 'react-icons/fa';
 import sidebarBg from '../../assets/bg2.jpg';
 import './SideBar.scss';
 
 import { DiReact } from 'react-icons/di';
-import { MdDashboard } from 'react-icons/md';
+import { useTranslation } from 'react-i18next';
+
 const SideBar = (props) => {
     const navigate = useNavigate();
-    const { image, collapsed, toggled, handleToggleSidebar } = props;
+    const { t } = useTranslation();
+    const { collapsed, toggled, handleToggleSidebar } = props;
+
     return (
         <div>
             <ProSidebar
@@ -40,53 +43,38 @@ const SideBar = (props) => {
                             whiteSpace: 'nowrap',
                         }}
                     >
-                        <DiReact size={'3em'} color={"00bfff"}/>
+                        <DiReact size={'3em'} color={"00bfff"} />
                         <span onClick={() => navigate('/')}>Quang Quang</span>
                     </div>
                 </SidebarHeader>
 
                 <SidebarContent>
                     <Menu iconShape="circle">
-                        <MenuItem
-                            icon={<FaTachometerAlt />}
-                        // suffix={<span className="badge red">New</span>}
-                        >
-                            dashboard
+                        <MenuItem icon={<FaTachometerAlt />}>
+                            {t("sidebar.dashboard")}
                             <Link to="/admins" />
                         </MenuItem>
-                        {/* <MenuItem icon={<FaGem />}> components</MenuItem> */}
                     </Menu>
                     <Menu iconShape="circle">
-                        <SubMenu
-                            // suffix={<span className="badge yellow">3</span>}
-                            // icon={<FaRegLaughWink />}
-                            icon={<FaGem />}
-                            title={"Features"}
-                        >
+                        <SubMenu icon={<FaGem />} title={t("sidebar.features")}>
                             <MenuItem>
-                                Quản lý User
+                                {t("sidebar.manageUser")}
                                 <Link to="/admins/manage-user" />
                             </MenuItem>
                             <MenuItem>
-                                Quản lý bài Quiz
+                                {t("sidebar.manageQuiz")}
                                 <Link to="/admins/manage-quizzes" />
                             </MenuItem>
                             <MenuItem>
-                                Quản lý câu hỏi
-                                <Link to="/admins/manage-questions"/>
+                                {t("sidebar.manageQuestion")}
+                                <Link to="/admins/manage-questions" />
                             </MenuItem>
                         </SubMenu>
-
                     </Menu>
                 </SidebarContent>
 
                 <SidebarFooter style={{ textAlign: 'center' }}>
-                    <div
-                        className="sidebar-btn-wrapper"
-                        style={{
-                            padding: '20px 24px',
-                        }}
-                    >
+                    <div className="sidebar-btn-wrapper" style={{ padding: '20px 24px' }}>
                         <a
                             href="https://github.com/azouaoui-med/react-pro-sidebar"
                             target="_blank"
@@ -95,13 +83,12 @@ const SideBar = (props) => {
                         >
                             <FaGithub />
                             <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                                viewSource
+                                {t("sidebar.viewSource")}
                             </span>
                         </a>
                     </div>
                 </SidebarFooter>
             </ProSidebar>
-
         </div>
     )
 }

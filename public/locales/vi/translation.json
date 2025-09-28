@@ -51,5 +51,139 @@
             "signup": "Đăng ký"
         },
         "backHome": "<< Quay lại"
+    },
+    "dashboard": {
+        "title1": "Bảng phân tích",
+        "title2": "Chúc một ngày may mắn! Cùng nhau làm việc với những con số nhé.",
+        "header1": "Các tham số thống kê",
+        "header2": "Biểu đồ cột số lượng câu hỏi và câu trả lời trong bài kiểm tra",
+        "users": {
+            "total": "Tổng số người dùng",
+            "users": "Người dùng",
+            "admins": "Quản trị viên"
+        },
+        "quizzes": "Tổng số bài kiểm tra",
+        "questions": "Tổng số câu hỏi",
+        "answers": "Tổng số câu trả lời",
+        "chart": {
+            "quizzes": "Bài kiểm tra",
+            "questions": "Câu hỏi",
+            "answers": "Câu trả lời"
+        }
+    },
+    "sidebar": {
+        "dashboard": "Bảng điều khiển",
+        "features": "Chức năng",
+        "manageUser": "Quản lý người dùng",
+        "manageQuiz": "Quản lý bài Quiz",
+        "manageQuestion": "Quản lý câu hỏi",
+        "viewSource": "Xem mã nguồn"
+    },
+    "manageuser": {
+        "title": "Quản lý người dùng",
+        "addnewuser": "Thêm mới tài khoản",
+        "viewuser": "Thông tin người dùng",
+        "updateuser": "Cập nhật người dùng",
+        "deleteuser": "Xóa người dùng,",
+        "tableUser": {
+            "action": "Hành động",
+            "view": "Xem",
+            "update": "Cập nhật",
+            "delete": "Xóa",
+            "notFound": "Không tìm thấy dữ liệu",
+            "next": "sau",
+            "previous": "trước"
+        },
+        "form": {
+            "id": "Mã",
+            "username": "Tên người dùng",
+            "email": "Email",
+            "role": "Vai trò",
+            "password": "Mật khẩu"
+        },
+        "save": "Lưu",
+        "close": "Đóng",
+        "uploadimage": "tải ảnh lên",
+        "previewimage": "xem trước hình ảnh",
+        "delete": "Xóa"
+    },
+    "managequiz": {
+        "title": "Quản lý bài thi",
+        "addnew": {
+            "legend": "Thêm mới bài thi",
+            "name": "Tên",
+            "namePlaceholder": "Nhập tên bài thi",
+            "description": "Mô tả",
+            "descriptionPlaceholder": "Nhập mô tả bài thi",
+            "type": "Mức độ ...",
+            "upload": "Tải ảnh lên",
+            "nofile": "Chưa có file nào",
+            "save": "Lưu"
+        },
+        "accordion": {
+            "manage": "Quản lý Quiz",
+            "updateqa": "Cập nhật Q/A Quiz",
+            "assign": "Thêm bài thi cho người dùng"
+        },
+        "tableQuiz": {
+            "title": "Danh sách Quiz",
+            "id": "Mã",
+            "name": "Tên",
+            "description": "Mô tả",
+            "type": "Loại",
+            "actions": "Hành động",
+            "edit": "Sửa",
+            "delete": "Xóa",
+            "view": "Xem"
+        },
+        "assignquiz": {
+            "selectquiz": "Chọn Quiz: ",
+            "selectuser": "Chọn Người dùng: ",
+            "assignbtn": "Thêm",
+            "addquestion": "Thêm câu hỏi:",
+            "answer": "Câu hỏi thứ ",
+            "description": "Mô tả câu hỏi thứ ",
+            "saveq": "Lưu câu hỏi"
+        },
+        "deletequiz": {
+            "title": "Xóa Quiz",
+            "confirm": "Bạn có chắc muốn xóa quiz có mã: {{id}}?",
+            "close": "Đóng",
+            "delete": "Xóa"
+        },
+        "updatequiz": {
+            "title": "Cập nhật Bài thi",
+            "name": "Tên",
+            "description": "Mô tả",
+            "difficulty": "Độ khó",
+            "upload": "Tải lên ảnh",
+            "preview": "Xem trước ảnh",
+            "close": "Đóng",
+            "save": "Lưu"
+        },
+        "viewquiz": {
+            "title": "Thông tin bài thi",
+            "id": "Mã",
+            "name": "Tên",
+            "description": "Mô tả",
+            "difficulty": "Loại",
+            "preview": "Xem trước ảnh",
+            "close": "Đóng"
+        },
+        "question": {
+            "title": "Quản lý câu hỏi",
+            "selectQuiz": "Chọn bài quiz",
+            "addQuestion": "Thêm câu hỏi",
+            "questionDescription": "Mô tả câu hỏi {{index}}",
+            "upload": "Chưa có file tải lên",
+            "answer": "Câu trả lời {{index}}",
+            "save": "Lưu câu hỏi"
+        }
+    },
+    "common": {
+        "close": "Đóng",
+        "cancel": "Hủy",
+        "delete": "Xóa",
+        "notfound": "Không tìm thấy dữ liệu"
     }
 }
