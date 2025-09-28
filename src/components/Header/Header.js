@@ -15,7 +15,7 @@ const Header = () => {
     const isAuthenticated = useSelector(state => state.user.isAuthenticated)
     const navigate = useNavigate();
     const Dispatch = useDispatch();
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const handleLogin = () => {
         navigate("/login")
     }
@@ -46,6 +46,7 @@ const Header = () => {
                         <NavLink to="/admins" className="nav-link ">{t("header.admin")}</NavLink>
                     </Nav>
                     <Nav>
+                        <Language />
                         {isAuthenticated === false ?
                             <>
                                 <button className='btn-login' onClick={() => handleLogin()}>{t("header.login")}</button>
@@ -57,7 +58,7 @@ const Header = () => {
                                 <NavDropdown.Item onClick={() => handleLogOut()}>{t("header.logout")}</NavDropdown.Item>
                             </NavDropdown>
                         }
-                        <Language/>
+
 
                     </Nav>
                 </Navbar.Collapse>

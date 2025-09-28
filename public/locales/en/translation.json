@@ -186,5 +186,27 @@
         "cancel": "Cancel",
         "notfound": "No data found",
         "delete": "Delete"
+    },
+    "listquiz": {
+        "title": "List of quizzes",
+        "card": {
+            "quiz": "Quiz {{number}}",
+            "startNow": "Start now"
+        },
+        "empty": {
+            "noQuiz": "Don't have quiz now..."
+        }
+    },
+    "detailquiz": {
+        "title": "Quiz {{id}}: {{title}}",
+        "question": "Câu hỏi ",
+        "button": {
+            "prev": "Previous",
+            "next": "Next",
+            "finish": "Finish"
+        },
+        "alert": {
+            "wrongAnswer": "Wrong answer..."
+        }
     }
 }

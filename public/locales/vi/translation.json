@@ -11,7 +11,7 @@
         "setting": "Cài đặt",
         "home": "Trang chủ",
         "user": "Người dùng",
-        "admin": "quản trị viên",
+        "admin": "Quản trị viên",
         "login": "Đăng Nhập",
         "signup": "Đăng Kí",
         "profile": "Tôi",
@@ -185,5 +185,27 @@
         "cancel": "Hủy",
         "delete": "Xóa",
         "notfound": "Không tìm thấy dữ liệu"
+    },
+    "listquiz": {
+        "title": "Danh sách bài thi",
+        "card": {
+            "quiz": "Bài Quiz {{number}}",
+            "startNow": "Bắt đầu ngay"
+        },
+        "empty": {
+            "noQuiz": "Hiện chưa có bài quiz nào..."
+        }
+    },
+    "detailquiz": {
+        "title": "Bài Quiz {{id}}: {{title}}",
+        "question": "Câu hỏi ",
+        "button": {
+            "prev": "Trước",
+            "next": "Tiếp",
+            "finish": "Hoàn thành"
+        },
+        "alert": {
+            "wrongAnswer": "Sai rồi..."
+        }
     }
 }

@@ -6,8 +6,10 @@ import './DetailQuiz.scss'
 import Question from "./Question"
 import ModalResult from "./ModalResult"
 import RightContent from "./Content/RightContent";
+import { useTranslation } from "react-i18next";
 
-const DetailQuiz = (props) => {
+const DetailQuiz = () => {
+    const { t } = useTranslation();
     const paramas = useParams();
     const location = useLocation();
 
@@ -39,9 +41,7 @@ const DetailQuiz = (props) => {
                 ...item,
                 isSelected: +item.id === +answerId
             }))
-
         }
-
         let index = dataQuizClone.findIndex(item => +item.questionId === +questionId)
         if (index > -1) {
             dataQuizClone[index] = question;
@@ -51,17 +51,13 @@ const DetailQuiz = (props) => {
 
     const fetchQuestions = async () => {
         let res = await getDataQuiz(quizId);
-
         if (res && res.EC === 0) {
             let raw = res.DT;
             let data = _.chain(raw)
-                // Group the elements of Array based on `color` property
                 .groupBy("id")
-                // `key` is group's name (color), `value` is the array of objects
                 .map((value, key) => {
                     let answers = [];
                     let questionDescriotion, image = null;
-                    // console.log('value', value, 'key', key)
                     value.forEach((item, index) => {
                         if (index === 0) {
                             questionDescriotion = item.description;
@@ -69,7 +65,6 @@ const DetailQuiz = (props) => {
                         }
                         item.answers.isSelected = false;
                         answers.push(item.answers)
-
                     })
                     return { questionId: key, answers, questionDescriotion, image }
                 })
@@ -78,9 +73,7 @@ const DetailQuiz = (props) => {
         }
     }
 
-
     const handleFinishQuiz = async () => {
-        console.log("check data ", dataQuiz)
         let payload = {
             quizId: +quizId,
             answers: []
@@ -102,7 +95,6 @@ const DetailQuiz = (props) => {
             })
             payload.answers = answers;
             let res = await postSubmitQuiz(payload)
-            console.log("check respon", res)
             if (res && res.EC === 0) {
                 setDataModalResult({
                     countCorrect: res.DT.countCorrect,
@@ -111,60 +103,62 @@ const DetailQuiz = (props) => {
                 })
                 setIsShowModalResult(true);
             } else {
-                alert("wrong answer...")
+                alert(t("detailquiz.alert.wrongAnswer"))
             }
         }
     }
 
-    // console.log(dataQuiz)
     return (
         <div className="detail-quiz-container">
             <hr/>
             <div className="left-content">
                 <div className="title">
-                    Quiz{quizId}: {location?.state?.quizTitle}
+                    {t("detailquiz.title", { id: quizId, title: location?.state?.quizTitle })}
                 </div>
 
                 <hr />
                 <div className="q-body">
-                    <img />
+                    <img alt="" />
                 </div>
                 <div className="q-content">
                     <Question
                         index={index}
                         handleCheckBox={handleCheckBox}
-                        data={
-                            dataQuiz && dataQuiz.length > 0 ?
-                                dataQuiz[index] : []} />
+                        data={dataQuiz && dataQuiz.length > 0 ? dataQuiz[index] : []} />
                 </div>
                 <div className="footer">
                     <button
                         className="btn btn-secondary"
-                        onClick={() => handlePrev()}
-                    >prev</button>
+                        onClick={handlePrev}
+                    >
+                        {t("detailquiz.button.prev")}
+                    </button>
                     <button
                         className="btn btn-primary mr-3"
-                        onClick={() => handleNext()}
-                    >next</button>
+                        onClick={handleNext}
+                    >
+                        {t("detailquiz.button.next")}
+                    </button>
                     <button
                         className="btn btn-warning mr-3"
-                        onClick={() => handleFinishQuiz()}
-                    >Finish</button>
+                        onClick={handleFinishQuiz}
+                    >
+                        {t("detailquiz.button.finish")}
+                    </button>
                 </div>
             </div>
             <div className="right-content">
                 <RightContent
-                    dataQuiz = {dataQuiz}
-                    handleFinishQuiz = {handleFinishQuiz}
+                    dataQuiz={dataQuiz}
+                    handleFinishQuiz={handleFinishQuiz}
                     setIndex={setIndex}
-                    indexs = {index}
+                    indexs={index}
                 />
             </div>
             <ModalResult
                 show={isShowModalResult}
                 setShow={setIsShowModalResult}
                 dataModalResult={dataModalResult} />
-
         </div>
     )
 }
