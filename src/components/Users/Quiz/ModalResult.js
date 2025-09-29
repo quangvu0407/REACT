@@ -1,4 +1,4 @@
-import { deleteUser } from '../../services/apiServices';
+import { deleteUser } from '../../../services/apiServices';
 import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';

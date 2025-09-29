@@ -23,6 +23,10 @@ const Header = () => {
         navigate("/register")
     }
 
+    const handleProfile = () => {
+        navigate("/profile")
+    }
+
     const handleLogOut = async () => {
         let res = await logOut(account.email, account.refresh_token);
         if (res && res.EC === 0) {
@@ -54,7 +58,7 @@ const Header = () => {
                             </>
                             :
                             <NavDropdown title={t("header.setting")} id="basic-nav-dropdown" className="custom-dropdown">
-                                <NavDropdown.Item >{t("header.profile")}</NavDropdown.Item>
+                                <NavDropdown.Item onClick={() => handleProfile()}>{t("header.profile")}</NavDropdown.Item>
                                 <NavDropdown.Item onClick={() => handleLogOut()}>{t("header.logout")}</NavDropdown.Item>
                             </NavDropdown>
                         }

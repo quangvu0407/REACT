@@ -112,9 +112,16 @@ const getOverview = () => {
     return axios.get(`/api/v1/overview`)
 }
 
+const changeProfile = (username, userImage) => {
+    const data = new FormData();
+    data.append("username", username)
+    data.append("userImage", userImage)
+    return axios.post(`/api/v1/profile`, data)
+}
+
 export {
     postCreateNewUser, getAllUser, putUpdateUser, deleteUser, getUserWithPaginate, 
     postLogin, postRegister, getQuizByUser, getDataQuiz, postSubmitQuiz, postCreateNewQuiz,
     getAllQuizForAdmin, deleteQuiz, putUpdateQuiz, postCreacteNewQuestionForQuiz, postCreacteNewAnswerForQuestion,
-    postAssignQuiz, getQuizWithQA, postUpsertQA, logOut, getOverview
+    postAssignQuiz, getQuizWithQA, postUpsertQA, logOut, getOverview, changeProfile
 }

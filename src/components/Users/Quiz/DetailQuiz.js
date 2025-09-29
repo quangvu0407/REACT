@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
 import { useParams, useLocation } from "react-router-dom"
-import { getDataQuiz, postSubmitQuiz } from "../../services/apiServices";
+import { getDataQuiz, postSubmitQuiz } from "../../../services/apiServices";
 import _ from "lodash"
 import './DetailQuiz.scss'
 import Question from "./Question"
 import ModalResult from "./ModalResult"
-import RightContent from "./Content/RightContent";
-import { useTranslation } from "react-i18next";
+import RightContent from "../Content/RightContent";
+import { useTranslation } from "react-i18next"; 
 
 const DetailQuiz = () => {
     const { t } = useTranslation();

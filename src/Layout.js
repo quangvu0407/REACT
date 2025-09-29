@@ -4,19 +4,19 @@ import {
     , Route
 } from "react-router-dom";
 import Admin from './components/Admin/Admin';
-import User from './components/Users/User';
 import HomePage from './components/Home/HomePage';
 import DashBoard from './components/Admin/content/DashBoard';
 import ManagerUser from './components/Admin/content/ManageUser';
 import Login from './components/Auth/Login';
 import { ToastContainer } from 'react-toastify';
 import Register from './components/Auth/Register';
-import ListQuiz from './components/Users/ListQuiz';
-import DetailQuiz from './components/Users/DetailQuiz';
+import ListQuiz from './components/Users/Quiz/ListQuiz';
+import DetailQuiz from './components/Users/Quiz/DetailQuiz';
 import ManageQuiz from './components/Admin/content/Quiz/ManageQuiz';
 import Questions from './components/Admin/content/Question/Questions';
 import { Suspense } from 'react';
 import PrivateRouter from './routers/PrivateRouter';
+import Profile from './components/Users/profile/ProfileUser';
 
 const NotFound = () => {
     return (
@@ -38,6 +38,10 @@ const Layout = (props) => {
                     <Route path="/quiz/:id" element={
                         <DetailQuiz />
                     } />
+                    <Route path="profile" element={
+                        <Profile/>
+                    }
+                    />
                 </Route>
 
 

@@ -1,5 +1,5 @@
 
-import { FETCH_USER_LOGIN_SUCCESS, USER_LOGOUT_SUCCESS } from '../action/userAction';
+import { FETCH_USER_LOGIN_SUCCESS, USER_LOGOUT_SUCCESS, UPDATE_SUCCESS } from '../action/userAction';
 
 const INITIAL_STATE = {
     account: {

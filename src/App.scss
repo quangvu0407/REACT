@@ -32,6 +32,9 @@ body {
 
 .app-container {
   .header-container {
+    background-color: rgb(196, 232, 232);
+    box-shadow: 0 4px 10px rgba(173, 149, 149, 0.4);
+    border-bottom: 2px solid rgb(169, 169, 232);
     .btn-login {
       border-radius: 5px;
       margin-right: 15px;
@@ -54,7 +57,7 @@ body {
     }
 
     .navbar {
-      padding-top: 20px;
+      padding-top: 10px;
       z-index: 10;
       background-color: rgba(0, 0, 0, 0) !important;
 
