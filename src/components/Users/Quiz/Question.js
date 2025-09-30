@@ -2,9 +2,10 @@ import _ from 'lodash';
 import { useState } from 'react';
 import Lightbox from "react-awesome-lightbox";
 import { useTranslation } from "react-i18next";
+import { IoIosClose, IoIosCheckmark } from "react-icons/io";
 
 const Question = (props) => {
-    const { data, index } = props;
+    const { data, index, finish } = props;
     const [isPreviewImage, setIsPreviewImage] = useState(false);
     const { t } = useTranslation();
     if (_.isEmpty(data)) {
@@ -39,26 +40,38 @@ const Question = (props) => {
             </div>
             <div className="answer">
                 {data.answers && data.answers.length > 0 &&
-                    data.answers.map((a, index) => {
+                    data.answers.map((a, i) => {
                         return (
-                            <div key={`answer-${index}`} className="a-child">
+                            <div key={`answer-${i}`} className="a-child">
                                 <div className="form-check">
                                     <input
                                         className="form-check-input"
                                         type="checkbox"
                                         checked={a.isSelected}
-                                        // id="flexCheckDefault"
-                                        onChange={(event) => handleHandleCheckBox(event, a.id, data.questionId)} />
-                                    <label className="form-check-label">
-                                        {String.fromCharCode(65 + index)}. {a.description}
+                                        disabled={finish}
+                                        onChange={(event) => handleHandleCheckBox(event, a.id, data.questionId)}
+                                    />
+                                    <label className="form-check-label" htmlFor={`checkbox-${i}-${index}`} >
+                                        {a.description}
                                     </label>
+                                    {finish === true &&
+                                        <>
+                                            {a.isSelected === true && a.isCorrect === false
+                                                && <IoIosClose className='incorrect' />
+                                            }
+
+                                            {a.isCorrect === true
+                                                && <IoIosCheckmark className='correct' />
+                                            }
+                                        </>
+                                    }
                                 </div>
                             </div>
-                        )
+                        );
                     })
-
                 }
             </div>
+
         </>
     )
 }

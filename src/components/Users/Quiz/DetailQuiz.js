@@ -6,7 +6,7 @@ import './DetailQuiz.scss'
 import Question from "./Question"
 import ModalResult from "./ModalResult"
 import RightContent from "../Content/RightContent";
-import { useTranslation } from "react-i18next"; 
+import { useTranslation } from "react-i18next";
 
 const DetailQuiz = () => {
     const { t } = useTranslation();
@@ -19,11 +19,13 @@ const DetailQuiz = () => {
 
     const [isShowModalResult, setIsShowModalResult] = useState(false);
     const [dataModalResult, setDataModalResult] = useState({});
+    const [finish, setFinish] = useState(false);
+    const [checkArr, setCheckArr] = useState({});
 
     useEffect(() => {
         fetchQuestions();
-    }, [quizId])
 
+    }, [quizId])
     const handlePrev = () => {
         if (index - 1 < 0) return;
         setIndex(index - 1);
@@ -52,6 +54,7 @@ const DetailQuiz = () => {
     const fetchQuestions = async () => {
         let res = await getDataQuiz(quizId);
         if (res && res.EC === 0) {
+            console.log(res)
             let raw = res.DT;
             let data = _.chain(raw)
                 .groupBy("id")
@@ -64,6 +67,7 @@ const DetailQuiz = () => {
                             image = item.image
                         }
                         item.answers.isSelected = false;
+                        item.answers.isCorrect = false;
                         answers.push(item.answers)
                     })
                     return { questionId: key, answers, questionDescriotion, image }
@@ -96,21 +100,45 @@ const DetailQuiz = () => {
             payload.answers = answers;
             let res = await postSubmitQuiz(payload)
             if (res && res.EC === 0) {
+                console.log(res)
                 setDataModalResult({
                     countCorrect: res.DT.countCorrect,
                     countTotal: res.DT.countTotal,
                     quizData: res.DT.quizData
                 })
                 setIsShowModalResult(true);
+                if (res.DT && res.DT.quizData) {
+                    let dataQuizClone = _.cloneDeep(dataQuiz);
+                    let a = res.DT.quizData;
+                    for (let q of a) {
+                        for (let i = 0; i < dataQuizClone.length; i++) {
+                            if (+q.questionId === +dataQuizClone[i].questionId) {
+                                //update answer
+                                let newAnswers = [];
+                                for (let j = 0; j < dataQuizClone[i].answers.length; j++) {
+                                    let s = q.systemAnswers.find(item => +item.id === +dataQuizClone[i].answers[j].id)
+                                    if (s) {
+                                        dataQuizClone[i].answers[j].isCorrect = true;
+                                    }
+                                    newAnswers.push(dataQuizClone[i].answers[j]);
+                                }
+                                dataQuizClone[i].answers = newAnswers;
+                            }
+                        }
+                    }
+                    setDataQuiz(dataQuizClone);
+                }
+                setFinish(true);
             } else {
                 alert(t("detailquiz.alert.wrongAnswer"))
             }
         }
     }
 
+
     return (
         <div className="detail-quiz-container">
-            <hr/>
+            <hr />
             <div className="left-content">
                 <div className="title">
                     {t("detailquiz.title", { id: quizId, title: location?.state?.quizTitle })}
@@ -122,6 +150,7 @@ const DetailQuiz = () => {
                 </div>
                 <div className="q-content">
                     <Question
+                        finish={finish}
                         index={index}
                         handleCheckBox={handleCheckBox}
                         data={dataQuiz && dataQuiz.length > 0 ? dataQuiz[index] : []} />
@@ -142,6 +171,7 @@ const DetailQuiz = () => {
                     <button
                         className="btn btn-warning mr-3"
                         onClick={handleFinishQuiz}
+                        disabled={finish}
                     >
                         {t("detailquiz.button.finish")}
                     </button>
