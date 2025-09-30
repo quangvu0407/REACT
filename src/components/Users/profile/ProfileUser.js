@@ -5,21 +5,33 @@ import { useTranslation } from "react-i18next";
 import { FcPlus } from 'react-icons/fc';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import { changeProfile } from "../../../services/apiServices";
+import { changePassword, changeProfile } from "../../../services/apiServices";
 import { toast } from "react-toastify";
 import { useDispatch } from 'react-redux';
-import { doLogin } from "../../../redux/action/userAction";
+import { doUpdate } from "../../../redux/action/userAction";
+import HistoryUser from "./HistoryUser";
 
 const Profile = () => {
     const user = useSelector(state => state.user.account);
     const [account, setAccount] = useState(user);
-    const [PreviewImage, setPreviewImage] = useState();
-    const [PreviewImage1, setPreviewImage1] = useState();
+
+    const [PreviewImage, setPreviewImage] = useState('');
+    const [PreviewImage1, setPreviewImage1] = useState('');
     const [image, setImage] = useState('');
+
     const [username, setUsername] = useState('');
     const [show, setShow] = useState(false);
+    const [showChangeName, setShowChangeName] = useState(false);
+    const [showChangePass, setShowChangePass] = useState(false);
+    const [showHistory, setShowHistory] = useState(false);
+
+
+    const [oldPass, setOldPass] = useState('');
+    const [newPass, setNewPass] = useState('');
+
     const { t } = useTranslation();
     const Dispatch = useDispatch()
+
     const handleClose = () => {
         setShow(false);
         setImage('');
@@ -31,8 +43,17 @@ const Profile = () => {
         setPreviewImage(`data:image/jpeg;base64,${account.image}`);
         setUsername(account.username)
     }
+
+    const handleChangeName = () => {
+        setShowChangeName(!showChangeName);
+    }
+
+    const handleChangePass = () => {
+        setShowChangePass(!showChangePass);
+    }
+
     useEffect(() => {
-        
+
     }, [account])
 
     const fileToBase64 = (file) => {
@@ -55,20 +76,40 @@ const Profile = () => {
     }
 
     const handleSave = async () => {
-        let res = await changeProfile(account.username, image);
+        let res = await changeProfile(username, image);
         if (res && res.EC === 0) {
-            let base64Image = await fileToBase64(image);
-            setAccount({
+            let base64Image
+            if (PreviewImage1 !== '') {
+                base64Image = await fileToBase64(image);
+            }
+            const updatedAccount = {
                 ...account,
                 username: res.DT?.username || username,
                 image: base64Image || account.image
-            });
+            };
+
+            setAccount(updatedAccount);
+            Dispatch(doUpdate(updatedAccount));
             handleClose();
             toast.success("Update avatar success");
-            Dispatch(doLogin(account))
+            setUsername('');
         }
         else {
             toast.error(res.EM)
+        }
+    }
+
+    const handleSaveChangePass = async () => {
+        let res = await changePassword(oldPass, newPass);
+        console.log(res)
+        if (res && res.EC === 0) {
+            toast.success(res.EM)
+        }
+        else {
+            toast.error(res.EM);
+            handleChangePass();
+            setOldPass('');
+            setNewPass('');
         }
     }
 
@@ -96,12 +137,77 @@ const Profile = () => {
                     </div>
                 </div>
                 <div className="profile-content">
-                    <span className="span1">{`Email: ${account.email}`}</span>
-                    <span className="span1">{`Name: ${account.username}`}</span>
-                    <span className="span1">{`Role: ${account.role}`}</span>
-                    <span></span>
+                    <div className="infor-user">
+                        <span className="span1">{`Email: ${account.email}`}</span>
+                        <span className="span1">{`Name: ${account.username}`}</span>
+                        <span className="span1">{`Role: ${account.role}`}</span>
+                    </div>
+
+                    <button
+                        className="update-username"
+                        onClick={() => handleChangeName()}
+                    > Change a Username ?</button>
+                    {showChangeName === true ?
+                        <div className="form-name">
+                            <input
+                                placeholder="New name"
+                                onChange={(ev) => setUsername(ev.target.value)}
+                            ></input>
+                            <button
+                                className="cancer"
+                                onClick={() => setShowChangeName(false)}
+                            >Cancer</button>
+                            <button
+                                className="change"
+                                onClick={() => handleSave()}
+                            >Change</button>
+                        </div>
+                        :
+                        <></>
+                    }
+
+                    <button
+                        className="update-username"
+                        onClick={() => handleChangePass()}
+                    > Change a Password ?</button>
+                    {showChangePass === true ?
+                        <div className="form-name">
+                            <input
+                                type="password"
+                                placeholder="old pass"
+                                onChange={(ev) => setOldPass(ev.target.value)}
+                            ></input>
+                            <input
+                                type="password"
+                                placeholder="New pass"
+                                onChange={(ev) => setNewPass(ev.target.value)}
+                            ></input>
+                            <button
+                                className="cancer"
+                                onClick={() => setShowChangePass(false)}
+                            >Cancer</button>
+                            <button
+                                className="change"
+                                onClick={() => handleSaveChangePass()}
+                            >Change</button>
+                        </div>
+                        :
+                        <></>
+                    }
+
                 </div>
             </div>
+            <div className="history">
+                <button
+                    onClick={() => setShowHistory(!showHistory)}
+                >History of user</button>
+
+                {showHistory === true ?
+                    <HistoryUser/>:
+                    <></>
+                }
+            </div>
+
             <Modal
                 show={show}
                 onHide={handleClose}

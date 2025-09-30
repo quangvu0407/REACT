@@ -42,40 +42,111 @@
                     border-radius: 3px;
                     background-color: rgb(171, 156, 235);
 
-                    &:hover {}
+                    &:hover {
+                        background-color: rgb(73, 37, 233);
+                    }
                 }
             }
         }
 
         .profile-content {
-            width: 70%;
+            width: 60%;
             padding: 30px 50px;
             border: 1px solid black;
             display: flex;
             flex-direction: column;
             gap: 20px;
-            color: rgb(39, 31, 31);
-            font-size: 20px;
-            font-weight: 200;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(173, 149, 149, 0.4);
+            height: 460px;
 
-            .span1 {
-                border: 1px solid rgb(67, 62, 62);
-                padding: 10px;
-                border-radius: 5px;
-                background-color: #deb3b30a;
-                width: 600px;
+            .infor-user {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+
+                .span1 {
+                    border: 1px solid rgb(67, 62, 62);
+                    padding: 10px;
+                    border-radius: 5px;
+                    background-color: #deb3b30a;
+                    width: 70%;
+                    color: rgb(39, 31, 31);
+                    font-size: 20px;
+                    font-weight: 200;
+                }
+
+            }
+
+
+            .update-username {
+                width: 180px;
+                padding: 6px 0px;
+                border-radius: 7px;
+                color: rgb(18, 8, 8);
+                border: 1px solid rgb(92, 82, 82);
+
+            }
+
+            .form-name {
+                display: flex;
+                gap: 10px;
+
+                .cancer {
+                    border-radius: 5px;
+                    background-color: wheat;
+                    border: 1px solid white;
+
+                    &:hover {
+                        border: 1px solid black;
+                    }
+                }
+
+                .change {
+                    border-radius: 5px;
+                    background-color: rgb(179, 212, 245);
+                    border: 1px solid white;
+
+                    &:hover {
+                        border: 1px solid black;
+                    }
+                }
+
+                input {
+                    border-radius: 4px;
+                    border: 1px solid rgb(208, 173, 173);
+                }
             }
         }
     }
 
+    .history {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding: 30px 0px;
+        gap: 20px;
+        button {
+            border-radius: 3px;
+            border: 1px solid black;
+
+            &:hover {
+                background-color: rgb(217, 191, 191);
+            }
+
+        }
+
+        .table {
+            border: 1px solid black;
+        }
+    }
 }
 
 .updateAvatar {
     .modal-content {
         background-color: #ceebe5ab;
     }
+
     .img-preview {
         height: 150px;
         border: 1px dashed;

@@ -13,3 +13,10 @@ export const doLogOut = () => {
         type: USER_LOGOUT_SUCCESS
     }
 } 
+
+export const doUpdate = (data) => {
+    return {
+        type: UPDATE_SUCCESS,
+        payload: data
+    }
+} 

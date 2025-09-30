@@ -40,6 +40,19 @@ const userReducer = (state = INITIAL_STATE, action) => {
                 isAuthenticated: false
             };
         default: return state;
+
+        case UPDATE_SUCCESS:
+            return {
+                ...state, account: {
+                    access_token: action?.payload?.access_token,
+                    refresh_token: action?.payload?.refresh_token,
+                    username: action?.payload?.username,
+                    image: action?.payload?.image,
+                    role: action?.payload?.role,
+                    email: action?.payload?.email
+                },
+                isAuthenticated: true
+            };
     }
 };
 
